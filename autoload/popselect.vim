@@ -188,7 +188,7 @@ enddef
 
 def Delete(item: any)
   src->remove(
-    (src) -> indexof((_, v) => v.label ==# item.label && v.tag ==# item.tag)
+    (src) ->  indexof((_, v) => (opts.getkey(v) ==# opts.getkey(item)))
   )
   for i in range(src->len())
     src[i].index = i + 1
@@ -286,6 +286,7 @@ export def Popup(what: list<any>, options: any = {})
     oncomplete: (item) => OnComplete(item),
     precomplete: (item) => NopFalse(item),
     ontabpage: (item) => OnTabpage(item),
+    getkey: (item) => item.index,
   }
   opts->extend(options)
   # List box
