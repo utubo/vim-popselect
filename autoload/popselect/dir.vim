@@ -1,5 +1,8 @@
 vim9script
 
+# Note: g:popselect is initialized in ../popslect.vim
+import '../popselect.vim'
+
 export def Popup(path: string = '', options: any = {})
   var items = []
   const fullpath = path ==# '' ? expand('%:p:h') : path
@@ -12,6 +15,7 @@ export def Popup(path: string = '', options: any = {})
     })
   endif
   const files = readdirex(fullpath, '1', { sort: 'collate' })
+  var l = g:popselect.limit
   for f in files
     const isdir = f.type ==# 'dir' || f.type ==# 'linkd'
     var item = {
@@ -21,6 +25,10 @@ export def Popup(path: string = '', options: any = {})
     }
     item[isdir ? 'dir' : 'target'] = $'{fullpath}/{f.name}'
     add(items, item)
+    l -= 1
+    if l < 0
+      break
+    endif
   endfor
   popselect#Popup(items, {
     title: popselect#Icon(fullpath, 'dir') .. fnamemodify(fullpath, ':t:r'),

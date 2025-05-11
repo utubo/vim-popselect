@@ -21,6 +21,7 @@ var defaultSettings = {
   maxheight: 9,
   colwidth: 18,
   tabstop: 2,
+  limit: 300,
   filter_focused: false,
   icon_term: "\uf489",
   icon_unknown: "\uea7b",
@@ -45,7 +46,6 @@ var defaultSettings = {
     'README.md',
   ],
   projectfiles_depth: 5,
-  projectfiles_limit: 300,
 }
 g:popselect = defaultSettings->extend(get(g:, 'popselect', {}))
 
@@ -294,7 +294,7 @@ export def Popup(what: list<any>, options: any = {})
   var selectedIndex = 1
   has_icon = false
   src = what->copy()
-  for i in range(src->len())
+  for i in range(min([src->len(), g:popselect.limit]))
     var item = src[i]
     if type(item) ==# type('')
       item = { label: item }

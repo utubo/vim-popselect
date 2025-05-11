@@ -56,7 +56,7 @@ export def GetProjectFiles(): list<string>
   return GetProjectFilesRecuse(
     path,
     g:popselect.projectfiles_depth + depth,
-    g:popselect.projectfiles_limit
+    g:popselect.limit
   )
 enddef
 
