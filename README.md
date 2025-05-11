@@ -14,7 +14,7 @@ Note: これは個人的に使っている設定をプラグインの形に切�
 - ドキュメントは気が向いたときに
 - README.mdは日本語
 
-## Required
+## Requirements
 
 Vim head
 
