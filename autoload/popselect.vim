@@ -67,7 +67,7 @@ enddef
 def Update()
   var text = []
   if filter_visible && filter_text !=# ''
-    items = matchfuzzy(src, filter_text, { text_cb: (i) => i.label })
+    items = matchfuzzy(items, filter_text, { text_cb: (i) => $"{i.label}\<Tab>{get(i, 'extra', '')}" })
   else
     items = src->copy()
   endif
