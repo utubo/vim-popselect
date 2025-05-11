@@ -17,12 +17,12 @@ export def Popup(options: any = {})
     var path = ''
     var icon = ''
     if m[2][2] =~# '[RF?]'
-      icon = g:popselect.icon_term
+      icon = popselect#Icon('', 'term')
       name = term_getline(nr, '.')
         ->substitute('\s*[%#>$]\s*$', '', '')
     else
       path = bufname(nr)->fnamemodify(':p')
-      icon = popselect#NerdFont(path)
+      icon = popselect#Icon(path)
       name = fnamemodify(name, ':t')
     endif
     const current = m[2][0] ==# '%'

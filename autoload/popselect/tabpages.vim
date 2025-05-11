@@ -19,7 +19,7 @@ export def Popup(options: any = {})
       if !name
         name = '[No Name]'
       elseif getbufvar(b, '&buftype') ==# 'terminal'
-        name = g:popselect.icon_term .. term_getline(b, '.')->trim()
+        name = popselect#Icon('', 'term') .. term_getline(b, '.')->trim()
       else
         name = name->pathshorten()
       endif

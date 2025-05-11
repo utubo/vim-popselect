@@ -365,8 +365,8 @@ def RestoreCursor()
   hlset(hl_cursor)
 enddef
 
-export def NerdFont(path: string, isDir: bool = false): string
-  if isDir
+export def Icon(path: string, type: string = 'file'): string
+  if type ==# 'dir'
     if path ==# '..'
       return g:popselect.icon_dirup
     elseif path->fnamemodify(':t') ==# '.git'
@@ -374,6 +374,8 @@ export def NerdFont(path: string, isDir: bool = false): string
     else
       return g:popselect.icon_diropen
     endif
+  elseif type ==# 'term'
+    return g:popselect.icon_term
   endif
   try
     const icon = nerdfont#find(expand(path))

@@ -8,7 +8,7 @@ export def Popup(files: list<string>, options: any = {})
       continue
     elseif filereadable(expand(f))
       add(items, {
-        icon: popselect#NerdFont(f),
+        icon: popselect#Icon(f),
         label: fnamemodify(f, ':t'),
         extra: f->fnamemodify(':p'),
         target: f

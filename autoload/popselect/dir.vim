@@ -5,7 +5,7 @@ export def Popup(path: string = '', options: any = {})
   const fullpath = path ==# '' ? expand('%:p:h') : path
   if fullpath->fnamemodify(':h') !=# fullpath
     add(items, {
-      icon: popselect#NerdFont('..', true),
+      icon: popselect#Icon('..', 'dir'),
       label: '..',
       dir: fullpath->fnamemodify(':h'),
       isdir: true,
@@ -15,7 +15,7 @@ export def Popup(path: string = '', options: any = {})
   for f in files
     const isdir = f.type ==# 'dir' || f.type ==# 'linkd'
     var item = {
-      icon: popselect#NerdFont(f.name, isdir),
+      icon: popselect#Icon(f.name, isdir ? 'dir' : 'file'),
       label: f.name,
       isdir: isdir,
     }
@@ -23,7 +23,7 @@ export def Popup(path: string = '', options: any = {})
     add(items, item)
   endfor
   popselect#Popup(items, {
-    title: popselect#NerdFont(fullpath, true) .. fnamemodify(fullpath, ':t:r'),
+    title: popselect#Icon(fullpath, 'dir') .. fnamemodify(fullpath, ':t:r'),
     filter_focused: !path ? '' : 'keep',
     precomplete: (item): bool => {
       if item.isdir
