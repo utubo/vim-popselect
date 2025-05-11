@@ -91,11 +91,12 @@ def Update()
     text += [$'{offset}{n} {icon}{[label, extra]->join("\<Tab>")}']
   endfor
   popup_settext(winid, text)
+  var padding_top = filter_visible && !!text ? 1 : 0
+  popup_setoptions(winid, {
+    padding: [padding_top, 1, 0, 1],
+    maxheight: min([g:popselect.maxheight, &lines - 2]) - padding_top,
+  })
   if filter_visible
-    popup_setoptions(winid, {
-      padding: [!text ? 0 : 1, 1, 0, 1],
-      cursorline: !!items,
-    })
     var cursor = ''
     if filter_focused
       hi link popselectFilter PMenu
@@ -117,7 +118,6 @@ def Update()
     popup_show(filter_winid)
     popup_settext(filter_winid, filtertext)
   else
-    popup_setoptions(winid, { padding: [0, 1, 0, 1] })
     popup_hide(filter_winid)
   endif
 enddef
