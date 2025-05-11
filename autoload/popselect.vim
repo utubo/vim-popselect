@@ -94,7 +94,7 @@ def Update()
   var padding_top = filter_visible && !!text ? 1 : 0
   popup_setoptions(winid, {
     padding: [padding_top, 1, 0, 1],
-    maxheight: min([g:popselect.maxheight, &lines - 2]) - padding_top,
+    maxheight: min([g:popselect.maxheight, &lines - 2 - padding_top]),
   })
   if filter_visible
     var cursor = ''
