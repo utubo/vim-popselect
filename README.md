@@ -40,6 +40,7 @@ nnoremap <C-p> <ScriptCmd>popselect#projectfiles#PopupMruAndProjectFiles()<CR>
 - 決定 `<CR>`
 - 表示中の下一桁のアイテムを選択して決定 `0`-`9`
 - タブで開く `t`, `<C-t>`
+- 閉じる `q`(BuffersとTab pagesのみ)
 - フィルターにフォーカスする `f`, `/`, `<Tab>`
 
 Note: `tabpages#Popup()`は`t`, `T`が移動になります
