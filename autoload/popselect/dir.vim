@@ -1,6 +1,6 @@
 vim9script
 
-export def Popup(path: string = '')
+export def Popup(path: string = '', options: any = {})
 	var items = []
 	const fullpath = path ==# '' ? expand('%:p:h') : path
 	if fullpath->fnamemodify(':h') !=# fullpath
@@ -28,12 +28,12 @@ export def Popup(path: string = '')
 		precomplete: (item): bool => {
 			if item.isdir
 				popselect#Close()
-				Popup(item.dir)
+				Popup(item.dir, options)
 				return true
 			else
 				return false
 			endif
 		}
-	})
+	}->extend(options))
 enddef
 

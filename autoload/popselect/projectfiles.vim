@@ -57,8 +57,11 @@ export def GetProjectFiles(): list<string>
 	)
 enddef
 
-export def PopupMruAndProjectFiles()
+export def PopupMruAndProjectFiles(options: any = {})
 	var items = v:oldfiles + GetProjectFiles()
-	popselect#files#Popup(items, { title: 'MRU + Project files', filter_focused: true })
+	popselect#files#Popup(
+		items,
+		{ title: 'MRU + Project files', filter_focused: true }->extend(options),
+	)
 enddef
 

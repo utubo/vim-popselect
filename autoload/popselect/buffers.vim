@@ -1,6 +1,6 @@
 vim9script
 
-export def Popup()
+export def Popup(options: any = {})
 	var bufs = []
 	var labels = []
 	const ls_result = execute('ls')->split("\n")
@@ -35,5 +35,5 @@ export def Popup()
 		title: 'Buffers',
 		onselect: (item) => execute($'buffer {item.tag}'),
 		ondelete: (item) => execute($'bdelete! {item.tag}'),
-	})
+	}->extend(options))
 enddef

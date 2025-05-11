@@ -1,6 +1,6 @@
 vim9script
 
-export def Popup()
+export def Popup(options: any = {})
 	var items = []
 	const current = tabpagenr()
 	for tab in range(1, tabpagenr('$'))
@@ -34,6 +34,6 @@ export def Popup()
 		ondelete: (item) => execute($'tabclose! {item.index}'),
 		onkey_t: () => popselect#Move('j'),
 		onkey_T: () => popselect#Move('k'),
-	})
+	}->extend(options))
 enddef
 
