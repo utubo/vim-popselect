@@ -64,7 +64,7 @@ export def Popup(options: any = {})
   var items = GetProjectFiles()
   popselect#files#Popup(
     items,
-    { title: 'Project files', filter_focused: true }->extend(options),
+    { title: 'Project files' }->extend(options),
   )
 enddef
 
@@ -72,7 +72,7 @@ export def PopupMruAndProjectFiles(options: any = {})
   var items = v:oldfiles + GetProjectFiles()
   popselect#files#Popup(
     items,
-    { title: 'MRU + Project files', filter_focused: true }->extend(options),
+    { title: 'MRU + Project files' }->extend(options),
   )
 enddef
 

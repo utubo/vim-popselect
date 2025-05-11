@@ -32,7 +32,7 @@ nnoremap <F1> <ScriptCmd>popselect#dir#Popup()<CR>
 nnoremap <F2> <ScriptCmd>popselect#mru#Popup()<CR>
 nnoremap <F3> <ScriptCmd>popselect#buffers#Popup()<CR>
 nnoremap <F4> <ScriptCmd>popselect#tabpages#Popup()<CR>
-nnoremap <C-p> <ScriptCmd>popselect#projectfiles#PopupMruAndProjectFiles()<CR>
+nnoremap <C-p> <ScriptCmd>popselect#projectfiles#PopupMruAndProjectFiles({ filter_focused: true })<CR>
 ```
 
 ### リストボックス
@@ -51,8 +51,6 @@ Note: `buffers#Popup()`, `tabpages#Popup()`は移動時即座に開きます
 - 決定 `<CR>`
 - タブで開く `<C-t>`
 - リストボックスにフォーカスする `<Tab>`
-
-Note: `popselect#projectfiles#Popup()`, `popselect#projectfiles#PopupMruAndProjectFiles()`はフィルターにフォーカスした状態で起動します(個人の好み)
 
 ## Settings
 Exmaple
