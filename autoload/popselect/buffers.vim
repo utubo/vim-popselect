@@ -1,5 +1,8 @@
 vim9script
 
+# Note: g:popselect is initialized in ../popslect.vim
+import '../popselect.vim'
+
 export def Popup(options: any = {})
 	var bufs = []
 	var labels = []

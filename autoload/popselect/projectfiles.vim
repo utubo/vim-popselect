@@ -1,5 +1,8 @@
 vim9script
 
+# Note: g:popselect is initialized in ../popslect.vim
+import '../popselect.vim'
+
 def GetProjectFilesRecuse(path: string, nest: number, limit: number): list<string>
 	var result = []
 	var children = []
@@ -54,6 +57,14 @@ export def GetProjectFiles(): list<string>
 		path,
 		g:popselect.projectfiles_depth + depth,
 		g:popselect.projectfiles_limit
+	)
+enddef
+
+export def Popup(options: any = {})
+	var items = GetProjectFiles()
+	popselect#files#Popup(
+		items,
+		{ title: 'Project files', filter_focused: true }->extend(options),
 	)
 enddef
 

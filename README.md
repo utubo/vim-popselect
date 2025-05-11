@@ -51,7 +51,7 @@ Note: `buffers#Popup()`, `tabpages#Popup()`は移動時即座に開きます
 - タブで開く `<C-t>`
 - リストボックスにフォーカスする `<Tab>`
 
-Note: `popselect#projectfiles#PopupMruAndProjectFiles()`はフィルターにフォーカスした状態で起動します(個人の好み)
+Note: `popselect#projectfiles#Popup()`, `popselect#projectfiles#PopupMruAndProjectFiles()`はフィルターにフォーカスした状態で起動します(個人の好み)
 
 ## Settings
 Exmaple
