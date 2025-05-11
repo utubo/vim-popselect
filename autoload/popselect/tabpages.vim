@@ -35,8 +35,8 @@ export def Popup(options: any = {})
     title: 'Tab pages',
     onselect: (item) => execute($'tabnext {item.index}'),
     ondelete: (item) => execute($'tabclose! {item.index}'),
-    onkey_t: () => popselect#Move('j'),
-    onkey_T: () => popselect#Move('k'),
+    onkey_t: (_) => popselect#Move('j'),
+    onkey_T: (_) => popselect#Move('k'),
   }->extend(options))
 enddef
 
