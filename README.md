@@ -26,10 +26,10 @@ and [vim-nerdfont](https://github.com/lambdalisue/vim-nerdfont)
 Place vim-popselect in `&rtp`.  
 Example
 ```vim
-call dein#add('utubo/vim-hlpairs')
+call dein#add('utubo/vim-popselect')
 ```
 
-Call `popselect#...#Popup()`  
+And call `popselect#...#Popup()`  
 Example
 ```vim
 nnoremap <F1> <ScriptCmd>popselect#dir#Popup()<CR>

@@ -56,7 +56,7 @@ Installation
 Place vim-popselect in `&rtp`.
 Example
 >
-	call dein#add('utubo/vim-hlpairs')
+	call dein#add('utubo/vim-popselect')
 <
 
 And call `popselect#...#Popup()`
