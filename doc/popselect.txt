@@ -138,8 +138,8 @@ CTRL-N			Down
 
 CTRL-B			Scroll list box a page Backwards.
 CTRL-F			Scroll list box a page Forwards.
-g			Goto first item.
-G			Goto last item.
+g			Goto the first item.
+G			Goto the last item.
 
 <CR>			Open
 
@@ -174,6 +174,7 @@ FUNCTIONS					*popselect-functions*
 
 popselect#Popup({items}, [{options}])
 
+	Popup items.
 	`items` is list<dictionaly>.
 
 		`label`		Item's label. This is required.
@@ -195,6 +196,14 @@ popselect#Popup({items}, [{options}])
 		`ontabpage`	a funcref(item :any) to open selected item
 				with a newtab.
 		`getkey`	a funcref(item :any) to get key for delete.
+		`onkey_N`	a funcref(item :any) on press `N`.
+				`N` is any one char.
+				e.g.
+>
+				onkey_s: (item) => { execute $'split
+				{item.target}' }
+<
+
 
 		and you can set same parameters of `g:popselect` and
 		`:h popup_create-aguments` .
@@ -210,5 +219,9 @@ popselect#Popup({items}, [{options}])
 		getkey: (item) => item.index,
 	}
 <
+
+popselect#Close()
+	Close popselect.
+
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:noet:fen:
