@@ -39,7 +39,7 @@ nnoremap <C-p> <ScriptCmd>popselect#projectfiles#PopupMruAndProjectFiles({ filte
 - Open: `<CR>`
 - Select with last digit and open: `0`-`9`
 - Open with a new tab: `t`, `<C-t>`
-- Close: `q`(Buffers and Tab pages)
+- Close: `q`, `d`(Buffers and Tab pages)
 - Focus the filter input box: `f`, `/`, `<Tab>`
 
 Note: You can move with `t` and `T` in `tabpages#Popup()`.  
