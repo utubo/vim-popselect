@@ -1,18 +1,17 @@
 # vim-popselect
 
-ファイルなどをポップアップウインドウで選択して開くやつ
+Open buffers, tab pages, MRU and more with popup window.
 ![popselect-min-half-min](https://github.com/user-attachments/assets/b9996b2e-2936-4168-9c5d-6ac4264a5d3f)
 
-Note: これは個人的に使っている設定をプラグインの形に切り出しただけで
-万人向けに作られたプラグインではありません
+Note: This is just a cutout of my personal settings in plugin form.
+It is not a plugin designed for everyone.
 
-よって以下です
+So here this is
 
-- 動作は個人の好み
-- 頻度の低いバグや副作用は放置
-- 破壊的変更が良くはいる
-- ドキュメントは気が向いたときに
-- README.mdは日本語
+- The behavior is a personal preference.
+- Infrequent bugs and side-effects are left out
+- Destructive changes are common.
+- Documentation is written when I feel like it
 
 ## Requirements
 
@@ -35,22 +34,22 @@ nnoremap <F4> <ScriptCmd>popselect#tabpages#Popup()<CR>
 nnoremap <C-p> <ScriptCmd>popselect#projectfiles#PopupMruAndProjectFiles({ filter_focused: true })<CR>
 ```
 
-### リストボックス
-- 移動 `j`, `<C-n>`, `k`, `<C-p>`, `<C-f>`, `<C-b>`, `G`, `g`(=`gg`)
-- 決定 `<CR>`
-- 表示中の下一桁のアイテムを選択して決定 `0`-`9`
-- タブで開く `t`, `<C-t>`
-- 閉じる `q`(BuffersとTab pagesのみ)
-- フィルターにフォーカスする `f`, `/`, `<Tab>`
+### List box
+- Move `j`, `<C-n>`, `k`, `<C-p>`, `<C-f>`, `<C-b>`, `G`, `g`(=`gg`)
+- Open `<CR>`
+- Select with last digit and open `0`-`9`
+- Open with a new tab `t`, `<C-t>`
+- Close `q`(Buffers and Tab pages)
+- Focus the filter input box `f`, `/`, `<Tab>`
 
-Note: `tabpages#Popup()`は`t`, `T`が移動になります
-Note: `buffers#Popup()`, `tabpages#Popup()`は移動時即座に開きます
+Note: You can move with `t`, `T` in `tabpages#Popup()`
+Note: `buffers#Popup()` and `tabpages#Popup()` open it on move.
 
-### フィルター部分
-- リスト移動 `<C-n>`, `<C-p>`, `<C-f>`, `<C-b>`
-- 決定 `<CR>`
-- タブで開く `<C-t>`
-- リストボックスにフォーカスする `<Tab>`
+### Filter input box
+- Move `<C-n>`, `<C-p>`, `<C-f>`, `<C-b>`
+- Open `<CR>`
+- Open with a new tab `<C-t>`
+- Focus the list box `<Tab>`
 
 ## Settings
 Exmaple
