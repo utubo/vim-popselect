@@ -79,12 +79,12 @@ VARIABLES					*popselect-variables*
 g:popselect					*popselect-g:popselect*
 	`g:popselect` is dictionaly.
 
-		`colwidth`	Minwidth of list item's label.
 		`tabstop`	&tabstop for list box.
 		`limit`		Limit of list items.
 		`filter_focused`
 				Focus the filter input box on popup.
-		`show_extra`	Show item.extra values.
+		`extra_show`	Show item.extra values.
+		`extra_col`	Minwidth of list item's label.
 		`icon_term`	Icon of terminal window.
 		`icon_unknown`	Icon for unknown file.
 		`icon_diropen`	Icon of direcoty opened.
@@ -104,11 +104,11 @@ g:popselect					*popselect-g:popselect*
 	g:popselect = {
 		maxwidth: 60,
 		maxheight: 9,
-		colwidth: 18,
 		tabstop: 2,
 		limit: 300,
 		filter_focused: false,
-		show_extra: true,
+		extra_show: true,
+		extra_col: 18,
 		icon_term: "\uf489",
 		icon_unknown: "\uea7b",
 		icon_diropen: "\ue5fe",

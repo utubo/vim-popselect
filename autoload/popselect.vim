@@ -21,11 +21,11 @@ var hl_popselect_cursor = []
 var default_settings = {
   maxwidth: 60,
   maxheight: 9,
-  colwidth: 18,
   tabstop: 2,
   limit: 300,
   filter_focused: false,
-  show_extra: true,
+  extra_show: true,
+  extra_col: 18,
   icon_term: "\uf489",
   icon_unknown: "\uea7b",
   icon_diropen: "\ue5fe",
@@ -98,12 +98,12 @@ def Update()
       icon = !item.icon ? g:popselect.icon_unknown : item.icon
     endif
     var label = item.label
-    if label->strdisplaywidth() < opts.colwidth
-      label = (label .. repeat(' ', opts.colwidth))
-        ->matchstr($'.*\%{opts.colwidth}v')
-    endif
-    const extra = opts.show_extra ? get(item, 'extra', '') : ''
+    const extra = opts.extra_show ? get(item, 'extra', '') : ''
     if !!extra
+      if label->strdisplaywidth() < opts.extra_col
+        label = (label .. repeat(' ', opts.extra_col))
+          ->matchstr($'.*\%{opts.extra_col}v')
+      endif
       label ..= $"\<Tab>{extra}"
     endif
     text += [$'{offset}{n} {icon}{label}']
@@ -315,12 +315,12 @@ export def Popup(what: list<any>, options: any = {})
     tabpage: -1,
     maxheight: g:popselect.maxheight,
     maxwidth: g:popselect.maxwidth,
-    colwidth: g:popselect.colwidth,
+    extra_col: g:popselect.extra_col,
     mapping: false,
     filter: NopFalse,
     filter_text: '',
     filter_focused: g:popselect.filter_focused,
-    show_extra: g:popselect.show_extra,
+    extra_show: g:popselect.extra_show,
     onselect: Nop,
     oncomplete: OnComplete,
     precomplete: NopFalse,
