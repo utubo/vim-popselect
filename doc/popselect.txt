@@ -165,7 +165,7 @@ f		or
 <Tab>		or
 <S-Tab>			Focus the filter input box
 
-Note:	You can move with `t` and `T` in `tabpages#Popup()`.  
+Note:	You can move with `t` and `T` in `tabpages#Popup()`.
 Note:	`buffers#Popup()` and `tabpages#Popup()` open it on move.
 
 ------------------------------------------------------------------------------
