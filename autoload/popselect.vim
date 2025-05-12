@@ -49,11 +49,11 @@ var default_settings = {
 }
 g:popselect = default_settings->extend(get(g:, 'popselect', {}))
 
-def Nop(item: any)
+def Nop(...args: list<any>)
   # nop
 enddef
 
-def NopFalse(item: any): bool
+def NopFalse(...args: list<any>): bool
   return false
 enddef
 
@@ -125,6 +125,9 @@ enddef
 
 def Filter(id: number, key: string): bool
   if key ==# "\<CursorHold>"
+    return true
+  endif
+  if opts.filter_user(id, key)
     return true
   endif
   if stridx("\<ESC>\<C-x>", key) !=# -1
@@ -281,15 +284,18 @@ export def Popup(what: list<any>, options: any = {})
     maxheight: min([g:popselect.maxheight, &lines - 2]),
     maxwidth: min([g:popselect.maxwidth, &columns - 5]),
     mapping: false,
-    filter: (id, key) => Filter(id, key),
+    filter: NopFalse,
+    filter_text: '',
     filter_focused: g:popselect.filter_focused,
-    onselect: (item) => Nop(item),
-    oncomplete: (item) => OnComplete(item),
-    precomplete: (item) => NopFalse(item),
-    ontabpage: (item) => OnTabpage(item),
+    onselect: Nop,
+    oncomplete: OnComplete,
+    precomplete: NopFalse,
+    ontabpage: OnTabpage,
     getkey: (item) => item.index,
   }
   opts->extend(options)
+  opts.filter_user = opts.filter
+  opts.filter = Filter
   # List box
   var selectedIndex = 1
   has_icon = false
@@ -311,7 +317,7 @@ export def Popup(what: list<any>, options: any = {})
   win_execute(winid, 'syntax match PMenuExtra /\t.*$/')
   win_execute(winid, $'setlocal tabstop={g:popselect.tabstop}')
   # Filter input box
-  filter_text = ''
+  filter_text = opts.filter_text
   if type(opts.filter_focused) !=# type('') || opts.filter_focused !=# 'keep'
     filter_focused = !!opts.filter_focused
   endif
