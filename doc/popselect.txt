@@ -1,4 +1,4 @@
-*popselect.txt*	Highlights the parentheses around the cursor.
+*popselect.txt*	Open buffers, tab pages, MRU and more with popup window.
 
 Author  : utubo
 License : MIT license  {{{
@@ -37,7 +37,7 @@ POPUP YOUR CUSTOMIZED ITEMS	|popselect-your-customized-items|
 ==============================================================================
 INTRODUCTION					*popselect-introduction*
 
-*popselect* is a Vim plugin highlights the parentheses around the cursor.
+*popselect* is a Vim plugin to open buffers, tab pages, MRU and more with popup window.
 
 Latest version:
 https://github.com/utubo/vim-popselect.vim
