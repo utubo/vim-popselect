@@ -84,7 +84,7 @@ g:popselect					*popselect-g:popselect*
 		`filter_focused`
 				Focus the filter input box on popup.
 		`extra_show`	Show item.extra values.
-		`extra_col`	Minwidth of list item's label.
+		`extra_col`	The position of item.extra.
 		`icon_term`	Icon of terminal window.
 		`icon_unknown`	Icon for unknown file.
 		`icon_diropen`	Icon of direcoty opened.
