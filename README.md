@@ -10,7 +10,7 @@ So here this is
 
 - The behavior is a personal preference.
 - Infrequent bugs and side-effects are left out
-- Destructive changes are common.
+- Breaking changes are common.
 - Documentation is written when I feel like it
 
 ## Requirements
