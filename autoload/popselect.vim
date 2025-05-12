@@ -324,17 +324,7 @@ export def Popup(what: list<any>, options: any = {})
   filter_visible = filter_focused
   hi link popselectFilter PMenu
   filter_winid = popup_create('', { highlight: 'popselectFilter' })
-  augroup popselect
-    au!
-    au VimLeavePre * RestoreCursor()
-  augroup END
-  set t_ve=
-  hl_cursor = hlget('Cursor')
-  hl_popselect_cursor = [hl_cursor[0]->copy()->extend({ name: 'popselectCursor' })]
-  hlset(hl_popselect_cursor)
-  hi clear Cursor
-  win_execute(filter_winid, 'syntax match popselectCursor / $/')
-  blink_timer = timer_start(500, popselect#BlinkCursor, { repeat: -1 })
+  HideCursor()
   # Show
   Update()
   win_gotoid(winid)
@@ -353,6 +343,25 @@ export def Close()
   augroup END
 enddef
 
+def HideCursor()
+  augroup popselect
+    au!
+    au VimLeavePre * RestoreCursor()
+  augroup END
+  set t_ve=
+  hl_cursor = hlget('Cursor')
+  hl_popselect_cursor = [hl_cursor[0]->copy()->extend({ name: 'popselectCursor' })]
+  hlset(hl_popselect_cursor)
+  hi clear Cursor
+  win_execute(filter_winid, 'syntax match popselectCursor / $/')
+  blink_timer = timer_start(500, popselect#BlinkCursor, { repeat: -1 })
+enddef
+
+def RestoreCursor()
+  set t_ve&
+  hlset(hl_cursor)
+enddef
+
 export def BlinkCursor(timer: number)
   if winid ==# 0 || popup_list()->index(winid) ==# -1
     # ここに来るのはポップアップが意図せず残留したとき
@@ -366,11 +375,6 @@ export def BlinkCursor(timer: number)
   else
     hlset(hl_popselect_cursor)
   endif
-enddef
-
-def RestoreCursor()
-  set t_ve&
-  hlset(hl_cursor)
 enddef
 
 export def Icon(path: string, type: string = 'file'): string
