@@ -50,7 +50,7 @@ USAGE						*popselect-usage*
 Requirements
 
 Vim head
-Note: This does not support Neovim.
+Note:	This does not support Neovim.
 
 Installation
 
@@ -165,8 +165,8 @@ f		or
 <Tab>		or
 <S-Tab>			Focus the filter input box
 
-Note: You can move with `t` and `T` in `tabpages#Popup()`.  
-Note: `buffers#Popup()` and `tabpages#Popup()` open it on move.
+Note:	You can move with `t` and `T` in `tabpages#Popup()`.  
+Note:	`buffers#Popup()` and `tabpages#Popup()` open it on move.
 
 ------------------------------------------------------------------------------
 FILTER						*popselect-filter*
@@ -180,8 +180,8 @@ CTRL-T			Open with a new tab
 <Tab>		or
 <S-Tab>			Focus the list box
 
-Note: The filter contains line numbers. In this case, the first line numbers
-are not reset.
+Note:	If the filter ends with digit, The filter contains line numbers.
+	In this case, the first line numbers are not reset.
 
 ------------------------------------------------------------------------------
 FUNCTIONS					*popselect-functions*
