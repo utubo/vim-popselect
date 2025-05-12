@@ -97,13 +97,16 @@ def Update()
     if has_icon
       icon = !item.icon ? g:popselect.icon_unknown : item.icon
     endif
-    var label = item.label->trim()
-    if label->strdisplaywidth() < g:popselect.colwidth
-      label = (label .. repeat(' ', g:popselect.colwidth))
-        ->matchstr($'.*\%{g:popselect.colwidth}v')
+    var label = item.label
+    if label->strdisplaywidth() < opts.colwidth
+      label = (label .. repeat(' ', opts.colwidth))
+        ->matchstr($'.*\%{opts.colwidth}v')
     endif
-    var extra = opts.show_extra ? get(item, 'extra', '') : ''
-    text += [$'{offset}{n} {icon}' .. $"{label}\<Tab>{extra}"->trim()]
+    const extra = opts.show_extra ? get(item, 'extra', '') : ''
+    if !!extra
+      label ..= $"\<Tab>{extra}"
+    endif
+    text += [$'{offset}{n} {icon}{label}']
   endfor
   popup_settext(winid, text)
   var padding_top = filter_visible && !!text ? 1 : 0
@@ -310,8 +313,9 @@ export def Popup(what: list<any>, options: any = {})
   opts = {
     zindex: 1,
     tabpage: -1,
-    maxheight: min([g:popselect.maxheight, &lines - 2]),
-    maxwidth: min([g:popselect.maxwidth, &columns - 5]),
+    maxheight: g:popselect.maxheight,
+    maxwidth: g:popselect.maxwidth,
+    colwidth: g:popselect.colwidth,
     mapping: false,
     filter: NopFalse,
     filter_text: '',
@@ -326,6 +330,8 @@ export def Popup(what: list<any>, options: any = {})
   opts->extend(options)
   opts.filter_user = opts.filter
   opts.filter = Filter
+  opts.maxheight = min([opts.maxheight, &lines - 2])
+  opts.maxwidth = min([opts.maxwidth, &columns - 5])
   # List box
   var selectedIndex = 1
   has_icon = false
