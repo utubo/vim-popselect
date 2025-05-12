@@ -162,13 +162,14 @@ def Filter(id: number, key: string): bool
       filter_focused = false
     elseif key ==# "\<BS>"
       filter_text = filter_text->substitute('.$', '', '')
+      filter_withdigit = {}
     elseif match(key, '^\p$') ==# -1
       Close()
       return true
     else
       if stridx('0123456789', key) !=# -1
         const index = GetIndexWithDigit(key)
-        filter_withdigit = get(items, index - 1, {})
+        filter_withdigit = get(items, index - line_offset - 1, {})
         line_offset = index - 1
       else
         filter_withdigit = {}
