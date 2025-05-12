@@ -25,7 +25,7 @@ var default_settings = {
   limit: 300,
   filter_focused: false,
   extra_show: true,
-  extra_col: 18,
+  extra_col: 20,
   icon_term: "\uf489",
   icon_unknown: "\uea7b",
   icon_diropen: "\ue5fe",
@@ -100,9 +100,9 @@ def Update()
     var label = item.label
     const extra = opts.extra_show ? get(item, 'extra', '') : ''
     if !!extra
-      if label->strdisplaywidth() < opts.extra_col
-        label = (label .. repeat(' ', opts.extra_col))
-          ->matchstr($'.*\%{opts.extra_col}v')
+      const c = opts.extra_col - opts.tabstop
+      if label->strdisplaywidth() < c
+        label = (label .. repeat(' ', c))->matchstr($'.*\%{c}v')
       endif
       label ..= $"\<Tab>{extra}"
     endif
@@ -315,12 +315,13 @@ export def Popup(what: list<any>, options: any = {})
     tabpage: -1,
     maxheight: g:popselect.maxheight,
     maxwidth: g:popselect.maxwidth,
-    extra_col: g:popselect.extra_col,
+    tabstop: g:popselect.tabstop,
     mapping: false,
     filter: NopFalse,
     filter_text: '',
     filter_focused: g:popselect.filter_focused,
     extra_show: g:popselect.extra_show,
+    extra_col: g:popselect.extra_col,
     onselect: Nop,
     oncomplete: OnComplete,
     precomplete: NopFalse,
@@ -351,7 +352,7 @@ export def Popup(what: list<any>, options: any = {})
   winid = popup_menu([], opts)
   win_execute(winid, $'syntax match PMenuKind /^\s*\d\+ {has_icon ? '.' : ''}/')
   win_execute(winid, 'syntax match PMenuExtra /\t.*$/')
-  win_execute(winid, $'setlocal tabstop={g:popselect.tabstop}')
+  win_execute(winid, $'setlocal tabstop={opts.tabstop}')
   # Filter input box
   filter_text = opts.filter_text
   if type(opts.filter_focused) !=# type('') || opts.filter_focused !=# 'keep'

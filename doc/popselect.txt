@@ -84,7 +84,8 @@ g:popselect					*popselect-g:popselect*
 		`filter_focused`
 				Focus the filter input box on popup.
 		`extra_show`	Show item.extra values.
-		`extra_col`	The position of item.extra.
+		`extra_col`	The position of item.extra without line
+				numbers and icons.
 		`icon_term`	Icon of terminal window.
 		`icon_unknown`	Icon for unknown file.
 		`icon_diropen`	Icon of direcoty opened.
@@ -108,7 +109,7 @@ g:popselect					*popselect-g:popselect*
 		limit: 300,
 		filter_focused: false,
 		extra_show: true,
-		extra_col: 18,
+		extra_col: 20,
 		icon_term: "\uf489",
 		icon_unknown: "\uea7b",
 		icon_diropen: "\ue5fe",
