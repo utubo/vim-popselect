@@ -162,7 +162,8 @@ d			Close(Buffers and Tab pages)
 
 f		or
 /		or
-<Tab>			Focus the filter input box
+<Tab>		or
+<S-Tab>			Focus the filter input box
 
 Note: You can move with `t` and `T` in `tabpages#Popup()`.  
 Note: `buffers#Popup()` and `tabpages#Popup()` open it on move.
@@ -176,7 +177,8 @@ CTRL-B			Scroll list box a page Backwards.
 CTRL-F			Scroll list box a page Forwards.
 <CR>			Open
 CTRL-T			Open with a new tab
-<Tab>			Focus the list box
+<Tab>		or
+<S-Tab>			Focus the list box
 
 ------------------------------------------------------------------------------
 FUNCTIONS					*popselect-functions*
