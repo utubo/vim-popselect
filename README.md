@@ -35,21 +35,21 @@ nnoremap <C-p> <ScriptCmd>popselect#projectfiles#PopupMruAndProjectFiles({ filte
 ```
 
 ### List box
-- Move `j`, `<C-n>`, `k`, `<C-p>`, `<C-f>`, `<C-b>`, `G`, `g`(=`gg`)
-- Open `<CR>`
-- Select with last digit and open `0`-`9`
-- Open with a new tab `t`, `<C-t>`
-- Close `q`(Buffers and Tab pages)
-- Focus the filter input box `f`, `/`, `<Tab>`
+- Move: `j`, `<C-n>`, `k`, `<C-p>`, `<C-f>`, `<C-b>`, `G`, `g`(=`gg`)
+- Open: `<CR>`
+- Select with last digit and open: `0`-`9`
+- Open with a new tab: `t`, `<C-t>`
+- Close: `q`(Buffers and Tab pages)
+- Focus the filter input box: `f`, `/`, `<Tab>`
 
-Note: You can move with `t` and `T` in `tabpages#Popup()`  
+Note: You can move with `t` and `T` in `tabpages#Popup()`.  
 Note: `buffers#Popup()` and `tabpages#Popup()` open it on move.
 
 ### Filter input box
-- Move `<C-n>`, `<C-p>`, `<C-f>`, `<C-b>`
-- Open `<CR>`
-- Open with a new tab `<C-t>`
-- Focus the list box `<Tab>`
+- Move: `<C-n>`, `<C-p>`, `<C-f>`, `<C-b>`
+- Open: `<CR>`
+- Open with a new tab: `<C-t>`
+- Focus the list box: `<Tab>`
 
 ## Settings
 Exmaple
@@ -59,9 +59,9 @@ g:popselect = {
 	maxwidth: 40,
 }
 ```
-See `default_settings` in [autoload/popselect.vim](autoload/popselect.vim)
+See `default_settings` in [autoload/popselect.vim](autoload/popselect.vim).
 
-## Popup Cutomized list
+## Popup your cutomized list
 Examples
 [autoload/popselect/*.vim](autoload/popselect)
 
