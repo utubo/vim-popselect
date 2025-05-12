@@ -102,8 +102,8 @@ def Update()
       label = (label .. repeat(' ', g:popselect.colwidth))
         ->matchstr($'.*\%{g:popselect.colwidth}v')
     endif
-    var extra = opts.show_extra ? get(item, 'extra', '')->trim() : ''
-    text += [$'{offset}{n} {icon}{[label, extra]->join("\<Tab>")}']
+    var extra = opts.show_extra ? get(item, 'extra', '') : ''
+    text += [$'{offset}{n} {icon}' .. $"{label}\<Tab>{extra}"->trim()]
   endfor
   popup_settext(winid, text)
   var padding_top = filter_visible && !!text ? 1 : 0
