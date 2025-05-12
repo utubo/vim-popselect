@@ -47,15 +47,21 @@ https://github.com/utubo/vim-popselect.vim
 USAGE						*popselect-usage*
 
 Requirements
+
 Vim head
 Note: This does not support Neovim.
 
 Installation
 
-	Example
+Place vim-popselect in `&rtp`.
+Example
 >
-	vim9script
-	packadd vim-popselect
+	call dein#add('utubo/vim-hlpairs')
+<
+
+And call `popselect#...#Popup()`
+Example
+>
 	nnoremap <F1> <ScriptCmd>popselect#dir#Popup()<CR>
 	nnoremap <F2> <ScriptCmd>popselect#mru#Popup()<CR>
 	nnoremap <F3> <ScriptCmd>popselect#buffers#Popup()<CR>
