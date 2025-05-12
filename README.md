@@ -11,7 +11,6 @@ So here this is
 - The behavior is a personal preference.
 - Infrequent bugs and side-effects are left out
 - Breaking changes are common.
-- Documentation is written when I feel like it
 
 ## Requirements
 
@@ -22,11 +21,17 @@ Note: This does not support Neovim.
 
 and [vim-nerdfont](https://github.com/lambdalisue/vim-nerdfont)
 
-## Usage
+## Get start
+
+Place vim-popselect in `&rtp`.  
 Example
+```vim
+call dein#add('utubo/vim-hlpairs')
 ```
-vim9script
-packadd vim-popselect
+
+Call popselect#...()  
+Example
+```vim
 nnoremap <F1> <ScriptCmd>popselect#dir#Popup()<CR>
 nnoremap <F2> <ScriptCmd>popselect#mru#Popup()<CR>
 nnoremap <F3> <ScriptCmd>popselect#buffers#Popup()<CR>
@@ -52,14 +57,7 @@ Note: `buffers#Popup()` and `tabpages#Popup()` open it on move.
 - Focus the list box: `<Tab>`
 
 ## Settings
-Exmaple
-```
-vim9script
-g:popselect = {
-	maxwidth: 40,
-}
-```
-See `default_settings` in [autoload/popselect.vim](autoload/popselect.vim).
+See [doc/popselect.txt](doc/popselect.txt).
 
 ## Popup your cutomized list
 Examples
