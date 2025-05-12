@@ -7,6 +7,8 @@ var filter_winid = 0
 var filter_text = ''
 var filter_visible = false
 var filter_focused = false
+var filter_withdigit = {}
+var line_offset = 0
 var has_icon = false
 var src = []
 var items = []
@@ -70,10 +72,20 @@ def Update()
   var text = []
   if filter_visible && filter_text !=# ''
     items = matchfuzzy(src, filter_text, { text_cb: (i) => $"{i.label}\<Tab>{get(i, 'extra', '')}" })
+    if filter_withdigit !=# {}
+      const i = (items)->indexof((_, v) => (opts.getkey(v) ==# opts.getkey(filter_withdigit)))
+      if i !=# -1
+        items->remove(i)
+      endif
+      items = [filter_withdigit] + items
+    else
+      line_offset = 0
+    endif
   else
     items = src->copy()
+    line_offset = 0
   endif
-  var n = 0
+  var n = line_offset
   var offset = items->len() < 10 ? '' : ' '
   for item in items
     n += 1
@@ -153,6 +165,13 @@ def Filter(id: number, key: string): bool
       Close()
       return true
     else
+      if stridx('0123456789', key) !=# -1
+        const index = GetIndexWithDigit(key)
+        filter_withdigit = get(items, index - 1, {})
+        line_offset = index - 1
+      else
+        filter_withdigit = {}
+      endif
       filter_text ..= key
       Select(1)
     endif
@@ -175,12 +194,8 @@ def Filter(id: number, key: string): bool
   elseif stridx('njbpkBgG', key) !=# -1
     Move(key)
   elseif stridx('0123456789', key) !=# -1
-    var target = str2nr(key)
-    const s = popup_getpos(winid).firstline
-    while target < s
-      target += 10
-    endwhile
-    Select(target)
+    const index = GetIndexWithDigit(key)
+    Select(index)
     Complete()
   elseif key ==# 't'
     WithTab()
@@ -209,6 +224,15 @@ enddef
 def Select(line: number)
   win_execute(winid, $':{line}')
   OnSelect()
+enddef
+
+def GetIndexWithDigit(d: string): number
+  var index = str2nr(d)
+  const s = popup_getpos(winid).firstline - line_offset
+  while index < s
+    index += 10
+  endwhile
+  return index
 enddef
 
 export def Move(key: any)
