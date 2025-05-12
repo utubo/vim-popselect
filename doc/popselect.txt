@@ -213,9 +213,9 @@ popselect#Popup({items}, [{options}])
 	{
 		filter_text: '',
 		onselect: (item) => {},
-		oncomplete: (item) => { open item.target },
 		precomplete: (item) => false,
-		ontabpage: (item) => { open item.target with a new tab },
+		oncomplete: (item) => { execute $'edit {item.target}' },
+		ontabpage: (item) => { execute $'tabedit {item.target}' },
 		getkey: (item) => item.index,
 	}
 <
