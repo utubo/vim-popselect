@@ -42,7 +42,7 @@ nnoremap <C-p> <ScriptCmd>popselect#projectfiles#PopupMruAndProjectFiles({ filte
 - Close `q`(Buffers and Tab pages)
 - Focus the filter input box `f`, `/`, `<Tab>`
 
-Note: You can move with `t`, `T` in `tabpages#Popup()`
+Note: You can move with `t` and `T` in `tabpages#Popup()`  
 Note: `buffers#Popup()` and `tabpages#Popup()` open it on move.
 
 ### Filter input box
