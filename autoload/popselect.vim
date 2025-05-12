@@ -313,22 +313,16 @@ export def Popup(what: list<any>, options: any = {})
   opts = {
     zindex: 1,
     tabpage: -1,
-    maxheight: g:popselect.maxheight,
-    maxwidth: g:popselect.maxwidth,
-    tabstop: g:popselect.tabstop,
     mapping: false,
     filter: NopFalse,
     filter_text: '',
-    filter_focused: g:popselect.filter_focused,
-    extra_show: g:popselect.extra_show,
-    extra_col: g:popselect.extra_col,
     onselect: Nop,
     oncomplete: OnComplete,
     precomplete: NopFalse,
     ontabpage: OnTabpage,
     getkey: (item) => item.index,
   }
-  opts->extend(options)
+  opts->extend(g:popselect)->extend(options)
   opts.filter_user = opts.filter
   opts.filter = Filter
   opts.maxheight = min([opts.maxheight, &lines - 2])
