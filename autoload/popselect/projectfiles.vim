@@ -33,6 +33,9 @@ export def GetProjectFiles(): list<string>
   var depth = 0
   while true
     depth += 1
+    if g:popselect.projectfiles_depth < depth
+        break
+    endif
     for a in g:popselect.projectfiles_root_anchor
       if isdirectory($'{path}/{a}') || filereadable($'{path}/{a}')
         found_root = true
