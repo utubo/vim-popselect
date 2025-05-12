@@ -197,8 +197,7 @@ popselect#Popup({items}, [{options}])
 		`label`		Item's label.
 
 		Optional
-		`extra`		List box show items.
-				`{item.label}<Tab>{item.extra}`
+		`extra`		List box show `{item.label}<Tab>{item.extra}`.
 		`icon`		Icon char.
 		`target`	popselect open this with default behavior.
 
