@@ -157,7 +157,8 @@ def Filter(id: number, key: string): bool
     return true
   endif
   if filter_focused
-    if stridx("\<Tab>\<S-Tab>", key) !=# -1
+    # Note: stridx("<S-Tab>", 'k') returns 1.
+    if key ==# "\<Tab>" || key ==# "\<S-Tab>"
       filter_focused = false
     elseif key ==# "\<BS>"
       filter_text = filter_text->substitute('.$', '', '')
@@ -197,7 +198,7 @@ def Filter(id: number, key: string): bool
     filter_visible = !filter_visible
     filter_focused = filter_visible
     Update()
-  elseif stridx("\<Tab>\<S-Tab>", key) !=# -1
+  elseif key ==# "\<Tab>" || key ==# "\<S-Tab>"
     filter_visible = true
     filter_focused = filter_visible
     Update()
