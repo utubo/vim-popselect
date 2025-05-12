@@ -29,7 +29,7 @@ Example
 call dein#add('utubo/vim-hlpairs')
 ```
 
-Call popselect#...()  
+Call `popselect#...#Popup()`  
 Example
 ```vim
 nnoremap <F1> <ScriptCmd>popselect#dir#Popup()<CR>
