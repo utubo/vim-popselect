@@ -181,7 +181,7 @@ CTRL-T			Open with a new tab
 <S-Tab>			Focus the list box
 
 Note:	If the filter ends with digit, The filter contains line numbers.
-	In this case, the first line numbers are not reset.
+	In this case, the first line number is not reset.
 
 ------------------------------------------------------------------------------
 FUNCTIONS					*popselect-functions*
