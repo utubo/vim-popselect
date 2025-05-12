@@ -180,6 +180,9 @@ CTRL-T			Open with a new tab
 <Tab>		or
 <S-Tab>			Focus the list box
 
+Note: The filter contains line numbers. In this case, the first line numbers
+are not reset.
+
 ------------------------------------------------------------------------------
 FUNCTIONS					*popselect-functions*
 
