@@ -230,16 +230,16 @@ popselect#Popup({items}, [{options}])
 		and you can set same parameters of `g:popselect` and
 		`:h popup_create-aguments` .
 
-	The default is
+		The default is
 >
-	{
-		filter_text: '',
-		onselect: (item) => {},
-		precomplete: (item) => false,
-		oncomplete: (item) => { execute $'edit {item.target}' },
-		ontabpage: (item) => { execute $'tabedit {item.target}' },
-		getkey: (item) => item.index,
-	}
+		{
+			filter_text: '',
+			onselect: (item) => {},
+			precomplete: (item) => false,
+			oncomplete: (item) => { execute $'edit {item.target}' },
+			ontabpage: (item) => { execute $'tabedit {item.target}' },
+			getkey: (item) => item.index,
+		}
 <
 
 popselect#Close()
