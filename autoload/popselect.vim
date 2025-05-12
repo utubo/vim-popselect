@@ -182,16 +182,7 @@ def Filter(id: number, key: string): bool
     Execute($'onkey_{key}')
     return true
   endif
-  if stridx('qd', key) !=# -1 && opts->has_key('ondelete')
-    Execute('ondelete')
-    Delete(Item())
-    return true
-  endif
-  if stridx("f/\<Tab>\<S-Tab>", key) !=# -1
-    filter_visible = !filter_visible || key ==# "\<Tab>"
-    filter_focused = filter_visible
-    Update()
-  elseif stridx('njbpkBgG', key) !=# -1
+  if stridx('njbpkBgG', key) !=# -1
     Move(key)
   elseif stridx('0123456789', key) !=# -1
     const index = GetIndexWithDigit(key)
@@ -199,7 +190,17 @@ def Filter(id: number, key: string): bool
     Complete()
   elseif key ==# 't'
     WithTab()
-    return true
+  elseif stridx('qd', key) !=# -1 && opts->has_key('ondelete')
+    Execute('ondelete')
+    Delete(Item())
+  elseif stridx('f/', key) !=# -1
+    filter_visible = !filter_visible
+    filter_focused = filter_visible
+    Update()
+  elseif stridx("\<Tab>\<S-Tab>", key) !=# -1
+    filter_visible = true
+    filter_focused = filter_visible
+    Update()
   else
     Close()
   endif

@@ -161,7 +161,7 @@ q		or
 d			Close(Buffers and Tab pages)
 
 f		or
-/		or
+/			Toggle the filter input box
 <Tab>		or
 <S-Tab>			Focus the filter input box
 
