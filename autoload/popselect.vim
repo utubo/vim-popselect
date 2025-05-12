@@ -16,7 +16,7 @@ var blink = false
 var hl_cursor = []
 var hl_popselect_cursor = []
 
-var defaultSettings = {
+var default_settings = {
   maxwidth: 60,
   maxheight: 9,
   colwidth: 18,
@@ -47,7 +47,7 @@ var defaultSettings = {
   ],
   projectfiles_depth: 5,
 }
-g:popselect = defaultSettings->extend(get(g:, 'popselect', {}))
+g:popselect = default_settings->extend(get(g:, 'popselect', {}))
 
 def Nop(item: any)
   # nop

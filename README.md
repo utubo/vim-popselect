@@ -60,7 +60,7 @@ g:popselect = {
 	maxwidth: 40,
 }
 ```
-See `defaultSettings` in [autoload/popselect.vim](autoload/popselect.vim)
+See `default_settings` in [autoload/popselect.vim](autoload/popselect.vim)
 
 ## Popup Cutomized list
 Examples
