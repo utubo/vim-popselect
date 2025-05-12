@@ -25,6 +25,7 @@ var default_settings = {
   tabstop: 2,
   limit: 300,
   filter_focused: false,
+  show_extra: true,
   icon_term: "\uf489",
   icon_unknown: "\uea7b",
   icon_diropen: "\ue5fe",
@@ -101,7 +102,7 @@ def Update()
       label = (label .. repeat(' ', g:popselect.colwidth))
         ->matchstr($'.*\%{g:popselect.colwidth}v')
     endif
-    var extra = get(item, 'extra', '')->trim()
+    var extra = opts.show_extra ? get(item, 'extra', '')->trim() : ''
     text += [$'{offset}{n} {icon}{[label, extra]->join("\<Tab>")}']
   endfor
   popup_settext(winid, text)
@@ -315,6 +316,7 @@ export def Popup(what: list<any>, options: any = {})
     filter: NopFalse,
     filter_text: '',
     filter_focused: g:popselect.filter_focused,
+    show_extra: g:popselect.show_extra,
     onselect: Nop,
     oncomplete: OnComplete,
     precomplete: NopFalse,
