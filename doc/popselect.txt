@@ -125,6 +125,7 @@ g:popselect					*popselect-g:popselect*
 		projectfiles_root_anchor: [
 		  '.git',
 		  'package.json',
+		  'deno.json',
 		  'pom.xml',
 		  'build.gradle',
 		  'README.md',

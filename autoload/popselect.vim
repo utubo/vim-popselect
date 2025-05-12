@@ -41,6 +41,7 @@ var default_settings = {
   projectfiles_root_anchor: [
     '.git',
     'package.json',
+    'deno.json',
     'pom.xml',
     'build.gradle',
     'README.md',
@@ -68,7 +69,7 @@ enddef
 def Update()
   var text = []
   if filter_visible && filter_text !=# ''
-    items = matchfuzzy(items, filter_text, { text_cb: (i) => $"{i.label}\<Tab>{get(i, 'extra', '')}" })
+    items = matchfuzzy(src, filter_text, { text_cb: (i) => $"{i.label}\<Tab>{get(i, 'extra', '')}" })
   else
     items = src->copy()
   endif
