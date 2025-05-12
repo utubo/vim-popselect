@@ -1,6 +1,6 @@
 # vim-popselect
 
-Open buffers, tab pages, MRU and more with popup window.
+Select a buffer, a tab page, MRU and more with popup window.
 ![popselect-min-half-min](https://github.com/user-attachments/assets/b9996b2e-2936-4168-9c5d-6ac4264a5d3f)
 
 Note: This is just a cutout of my personal settings in plugin form.
