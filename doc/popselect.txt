@@ -245,10 +245,8 @@ popselect#Popup({items}, [{options}])
 >
 		{
 			filter_text: '',
-			onselect: (item) => {},
-			precomplete: (item) => false,
-			oncomplete: (item) => { execute $'e {item.target}' },
-			ontabpage: (item) => {execute $'tabe {item.target}' },
+			oncomplete: (item) => execute($'e {item.target}'),
+			ontabpage: (item) => execute($'tabe {item.target}'),
 			getkey: (item) => item.index,
 		}
 <

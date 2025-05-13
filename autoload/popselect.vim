@@ -53,11 +53,7 @@ var default_settings = {
 }
 g:popselect = default_settings->extend(get(g:, 'popselect', {}))
 
-def Nop(...args: list<any>)
-  # nop
-enddef
-
-def NopFalse(...args: list<any>): bool
+def Nop(...args: list<any>): bool
   return false
 enddef
 
@@ -317,11 +313,11 @@ export def Popup(what: list<any>, options: any = {})
     zindex: 1,
     tabpage: -1,
     mapping: false,
-    filter: NopFalse,
+    filter: Nop,
     filter_text: '',
     onselect: Nop,
     oncomplete: OnComplete,
-    precomplete: NopFalse,
+    precomplete: Nop,
     ontabpage: OnTabpage,
     getkey: (item) => item.index,
   }
