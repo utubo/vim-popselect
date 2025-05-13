@@ -83,6 +83,9 @@ g:popselect					*popselect-g:popselect*
 		`limit`		Limit of list items.
 		`filter_focused`
 				Focus the filter input box on popup.
+				`true`: Focus
+				`false`: Do not focus
+				`'keep'`: Keep last state
 		`extra_show`	Show item.extra values.
 		`extra_col`	The position of item.extra without line
 				numbers and icons.
