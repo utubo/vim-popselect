@@ -194,6 +194,9 @@ def Filter(id: number, key: string): bool
     const index = GetIndexWithDigit(key)
     Select(index)
     Complete()
+  elseif stridx('eo', key) !=# -1
+    Complete()
+    return true
   elseif key ==# 't'
     WithTab()
   elseif stridx('qd', key) !=# -1 && opts->has_key('ondelete')

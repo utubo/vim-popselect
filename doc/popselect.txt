@@ -156,6 +156,8 @@ CTRL-F			Scroll list box a page Forwards.
 g			Goto the first item.
 G			Goto the last item.
 
+o		or
+e		or
 <CR>			Open
 
 0 - 9			Select with last digit and open it.
@@ -168,8 +170,12 @@ d			Close(Buffers and Tab pages)
 
 f		or
 /			Toggle the filter input box
+
 <Tab>		or
 <S-Tab>			Focus the filter input box
+
+x		or
+<ESC>			Close popselect
 
 Note:	You can move with `t` and `T` in `tabpages#Popup()`.
 Note:	`buffers#Popup()` and `tabpages#Popup()` open it on move.
@@ -185,6 +191,7 @@ CTRL-F			Scroll list box a page Forwards.
 CTRL-T			Open with a new tab
 <Tab>		or
 <S-Tab>			Focus the list box
+<ESC>			Close popselect
 
 Note:	If the last key is a digit, The filter contains line numbers.
 	In this case, the first line number is not reset.
