@@ -180,8 +180,9 @@ def Filter(id: number, key: string): bool
     Update()
     return true
   endif
-  if opts->has_key($'onkey_{key}')
-    Execute($'onkey_{key}')
+  const onkey_N = $'onkey_{key}'
+  if opts->has_key(onkey_N)
+    funcref(opts[onkey_N], [Item()])()
     return true
   endif
   if stridx('njbpkBgG', key) !=# -1
@@ -196,7 +197,7 @@ def Filter(id: number, key: string): bool
   elseif key ==# 't'
     WithTab()
   elseif stridx('qd', key) !=# -1 &&
-      (opts->has_key('ondelete') || opts->has_key('predelete'))
+      (opts.ondelete !=# Nop || opts.predelete !=# Nop)
     Delete(Item())
   elseif stridx('f/', key) !=# -1
     filter_visible = !filter_visible
@@ -213,10 +214,10 @@ def Filter(id: number, key: string): bool
 enddef
 
 def Delete(item: any)
-  if ExecuteBool('predelete')
+  if opts.predelete(item)
     return
   endif
-  Execute('ondelete')
+  opts.ondelete(item)
   src->remove(
     (src) ->  indexof((_, v) => (opts.getkey(v) ==# opts.getkey(item)))
   )
@@ -302,19 +303,6 @@ def OnSelect()
   opts.onselect(Item())
 enddef
 
-def Execute(name: string)
-  if opts->has_key(name)
-    funcref(opts[name], [Item()])()
-  endif
-enddef
-
-def ExecuteBool(name: string): bool
-  if opts->has_key(name)
-    return funcref(opts[name], [Item()])()
-  endif
-  return false
-enddef
-
 export def Popup(what: list<any>, options: any = {})
   if what->len() < 1
     return
@@ -325,10 +313,12 @@ export def Popup(what: list<any>, options: any = {})
     mapping: false,
     filter: Nop,
     filter_text: '',
-    onselect: Nop,
     oncomplete: OnComplete,
-    precomplete: Nop,
     ontabpage: OnTabpage,
+    onselect: Nop,
+    ondelete: Nop,
+    precomplete: Nop,
+    predelete: Nop,
     getkey: (item) => item.index,
   }
   opts->extend(g:popselect)->extend(options)
