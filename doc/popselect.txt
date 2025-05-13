@@ -226,8 +226,8 @@ popselect#Popup({items}, [{options}])
 		`precomplete`	a funcref(item :any):bool before open item.
 				If this returns `ture` then cancel open item.
 		`ontabpage`	a funcref(item :any) to open selected item
-		`ondelete`	a funcref(item :any) to delete selected item.
 				with a newtab.
+		`ondelete`	a funcref(item :any) to delete selected item.
 		`getkey`	a funcref(item :any) to get key for delete.
 		`onkey_N`	a funcref(item :any) on press `N`.
 				`N` is any one char.
