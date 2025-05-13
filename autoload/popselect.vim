@@ -196,7 +196,6 @@ def Filter(id: number, key: string): bool
   elseif key ==# 't'
     WithTab()
   elseif stridx('qd', key) !=# -1 && opts->has_key('ondelete')
-    Execute('ondelete')
     Delete(Item())
   elseif stridx('f/', key) !=# -1
     filter_visible = !filter_visible
@@ -213,6 +212,10 @@ def Filter(id: number, key: string): bool
 enddef
 
 def Delete(item: any)
+  if opts.predelete(item)
+    return
+  endif
+  Execute('ondelete')
   src->remove(
     (src) ->  indexof((_, v) => (opts.getkey(v) ==# opts.getkey(item)))
   )
@@ -261,7 +264,6 @@ enddef
 def OnComplete(item: any)
   if item->has_key('target')
     execute 'edit' item.target
-    g:a = item.target
   endif
 enddef
 
@@ -318,6 +320,7 @@ export def Popup(what: list<any>, options: any = {})
     onselect: Nop,
     oncomplete: OnComplete,
     precomplete: Nop,
+    predelete: Nop,
     ontabpage: OnTabpage,
     getkey: (item) => item.index,
   }
@@ -371,6 +374,7 @@ export def Close()
   augroup popselect
     au!
   augroup END
+  doautocmd User PopSelectClosed
 enddef
 
 def HideCursor()
@@ -430,3 +434,14 @@ export def Icon(path: string, type: string = 'file'): string
   return g:popselect.icon_unknown
 enddef
 
+export def Confirm(what: any, options: any = {}): string
+  const id = popup_dialog(what, {
+    highlight: 'Question',
+  }->extend(options))
+  var c = "\<CursorHold>"
+  while c ==# "\<CursorHold>"
+    c = getcharstr()
+  endwhile
+  popup_close(id)
+  return c
+enddef

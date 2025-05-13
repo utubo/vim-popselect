@@ -3,6 +3,29 @@ vim9script
 # Note: g:popselect is initialized in ../popslect.vim
 import '../popselect.vim'
 
+def Confirm(item: any): bool
+  if !item.modified
+    return false
+  endif
+  const name = bufname(item.tag)
+  const c = popselect#Confirm([
+    $'Save changes to "{name ==# '' ? 'Untitled' : name}"?',
+    '(Y)es, (N)o, (C)ancel',
+  ])
+  if c ==# 'n'
+    return false
+  elseif c ==# 'y'
+    if name ==# ''
+      save Untitled
+    else
+      write
+    endif
+    return false
+  else
+    return true
+  endif
+enddef
+
 export def Popup(options: any = {})
   var bufs = []
   var labels = []
@@ -31,12 +54,14 @@ export def Popup(options: any = {})
       label: name,
       extra: path,
       tag: nr,
-      selected: current
+      modified: m[2] =~# '+',
+      selected: current,
     })
   endfor
   popselect#Popup(bufs, {
     title: 'Buffers',
     onselect: (item) => execute($'buffer {item.tag}'),
+    predelete: (item) => Confirm(item),
     ondelete: (item) => execute($'bdelete! {item.tag}'),
   }->extend(options))
 enddef

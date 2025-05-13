@@ -228,6 +228,8 @@ popselect#Popup({items}, [{options}])
 		`ontabpage`	a funcref(item :any) to open selected item
 				with a newtab.
 		`ondelete`	a funcref(item :any) to delete selected item.
+		`predelete`	a funcref(item :any):bool before delete item.
+				If this returns `ture` then cancel delete item.
 		`getkey`	a funcref(item :any) to get key for delete.
 		`onkey_N`	a funcref(item :any) on press `N`.
 				`N` is any one char.
@@ -261,6 +263,10 @@ popselect#Icon({path}, [{ftype}])
 		`dir` 	Directory
 		`term` 	Terminal window.
 			This will return g:popselect.icon_term.
+
+popselect#Confirm({what}): string
+	Show confirm dialog.
+	`what` is string or list<string>.
 
 ------------------------------------------------------------------------------
 POPUP YOUR CUSTOMIZED ITEMS		*popselect-your-customized-items*
