@@ -9,7 +9,7 @@ def Confirm(item: any): bool
   endif
   const name = bufname(item.tag)
   const c = popselect#Confirm([
-    $'Save changes to "{name ==# '' ? 'Untitled' : name}"?',
+    $'Save changes to "{name ?? 'Untitled'}"?',
     '(Y)es, (N)o, (C)ancel',
   ])
   if c ==# 'n'

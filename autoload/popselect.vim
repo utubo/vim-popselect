@@ -91,7 +91,7 @@ def Update()
     endif
     var icon = ''
     if has_icon
-      icon = !item.icon ? g:popselect.icon_unknown : item.icon
+      icon = item.icon ?? g:popselect.icon_unknown
     endif
     var label = item.label
     const extra = opts.extra_show ? get(item, 'extra', '') : ''

@@ -5,7 +5,7 @@ import '../popselect.vim'
 
 export def Popup(path: string = '', options: any = {})
   var items = []
-  const fullpath = path ==# '' ? expand('%:p:h') : path
+  const fullpath = path ?? expand('%:p:h')
   if fullpath->fnamemodify(':h') !=# fullpath
     add(items, {
       icon: popselect#Icon('..', 'dir'),
