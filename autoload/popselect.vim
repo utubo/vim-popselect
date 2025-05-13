@@ -195,7 +195,8 @@ def Filter(id: number, key: string): bool
     return true
   elseif key ==# 't'
     WithTab()
-  elseif stridx('qd', key) !=# -1 && opts->has_key('ondelete')
+  elseif stridx('qd', key) !=# -1 &&
+      (opts->has_key('ondelete') || opts->has_key('predelete'))
     Delete(Item())
   elseif stridx('f/', key) !=# -1
     filter_visible = !filter_visible
@@ -212,7 +213,7 @@ def Filter(id: number, key: string): bool
 enddef
 
 def Delete(item: any)
-  if opts.predelete(item)
+  if ExecuteBool('predelete')
     return
   endif
   Execute('ondelete')
@@ -307,6 +308,13 @@ def Execute(name: string)
   endif
 enddef
 
+def ExecuteBool(name: string): bool
+  if opts->has_key(name)
+    return funcref(opts[name], [Item()])()
+  endif
+  return false
+enddef
+
 export def Popup(what: list<any>, options: any = {})
   if what->len() < 1
     return
@@ -320,7 +328,6 @@ export def Popup(what: list<any>, options: any = {})
     onselect: Nop,
     oncomplete: OnComplete,
     precomplete: Nop,
-    predelete: Nop,
     ontabpage: OnTabpage,
     getkey: (item) => item.index,
   }
@@ -374,7 +381,6 @@ export def Close()
   augroup popselect
     au!
   augroup END
-  doautocmd User PopSelectClosed
 enddef
 
 def HideCursor()
@@ -432,16 +438,4 @@ export def Icon(path: string, type: string = 'file'): string
     # nop
   endtry
   return g:popselect.icon_unknown
-enddef
-
-export def Confirm(what: any, options: any = {}): string
-  const id = popup_dialog(what, {
-    highlight: 'Question',
-  }->extend(options))
-  var c = "\<CursorHold>"
-  while c ==# "\<CursorHold>"
-    c = getcharstr()
-  endwhile
-  popup_close(id)
-  return c
 enddef

@@ -264,11 +264,6 @@ popselect#Icon({path}, [{ftype}])
 		`term` 	Terminal window.
 			This will return g:popselect.icon_term.
 
-popselect#Confirm({what}): string
-	Show confirm dialog.
-	`what` is string or list<string>.
-	Note: This is pending...
-
 ------------------------------------------------------------------------------
 POPUP YOUR CUSTOMIZED ITEMS		*popselect-your-customized-items*
 
