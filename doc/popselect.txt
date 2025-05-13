@@ -90,10 +90,10 @@ g:popselect					*popselect-g:popselect*
 		`extra_col`	The position of item.extra without line
 				numbers and icons.
 		`icon_term`	Icon of terminal window.
-		`icon_unknown`	Icon for unknown file.
-		`icon_diropen`	Icon of direcoty opened.
-		`icon_dirgit`	Icon of `.git`.
-		`icon_dirup`	Icon of `..`.
+		`icon_unknown`	Icon for unknown files.
+		`icon_diropen`	Icon of directory.
+		`icon_dirgit`	Icon of `.git/`.
+		`icon_dirup`	Icon of `../`.
 		`projectfiles_ignore_dirs`
 				`popselect#projectfiles#Popup()` ignores these.
 		`projectfiles_root_anchor`
