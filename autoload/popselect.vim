@@ -33,13 +33,9 @@ var default_settings = {
   icon_dirup: "\uf062",
   projectfiles_ignore_dirs: [
     'node_modules',
-    '.git',
     'dist',
     'build',
-    '.next',
-    '.cache',
-    '.venv',
-    '.out',
+    '.*',
   ],
   projectfiles_root_anchor: [
     '.git',

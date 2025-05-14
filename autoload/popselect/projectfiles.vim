@@ -3,9 +3,14 @@ vim9script
 # Note: g:popselect is initialized in ../popslect.vim
 import '../popselect.vim'
 
+var anchor_regex = ''
+var ignore_regex = ''
+var root = ''
+
 def GetProjectFilesRecuse(path: string, nest: number, limit: number): list<string>
   var result = []
   var children = []
+  var p = path->substitute('[/\\]$', '', '')
   var l = limit
   const files = readdirex(path, '1', { sort: 'collate' })
   for f in files
@@ -13,12 +18,12 @@ def GetProjectFilesRecuse(path: string, nest: number, limit: number): list<strin
     if l <= 0
       break
     endif
-    const fullpath = $'{path}/{f.name}'
+    const fullpath = $'{p}/{f.name}'
     if f.type ==# 'dir' || f.type ==# 'linkd'
-      if index(g:popselect.projectfiles_ignore_dirs, f.name) !=# -1
-        # nop
-      elseif 0 < nest
-        children += GetProjectFilesRecuse(fullpath, nest - 1, l)
+      if 0 < nest && match(f.name, ignore_regex) ==# -1
+        var c = GetProjectFilesRecuse(fullpath, nest - 1, l)
+        children += c
+        l -= c->len()
       endif
     else
       add(result, fullpath)
@@ -27,24 +32,26 @@ def GetProjectFilesRecuse(path: string, nest: number, limit: number): list<strin
   return result + children
 enddef
 
-export def GetProjectFiles(): list<string>
+def GetProjectRoot(): string
+  var anchors = []
+  for a in g:popselect.projectfiles_root_anchor
+    anchors->add(glob2regpat(a))
+  endfor
+  anchor_regex = anchors->join('\|')
   var found_root = false
+  var depth = g:popselect.projectfiles_depth
   var path = expand('%:p:h')
-  var depth = 0
   while true
-    depth += 1
-    if g:popselect.projectfiles_depth < depth
+    depth -= 1
+    if depth < 0
         break
     endif
-    for a in g:popselect.projectfiles_root_anchor
-      if isdirectory($'{path}/{a}') || filereadable($'{path}/{a}')
-        found_root = true
-        break
+    const files = readdirex(path, '1', { sort: 'collate' })
+    for f in files
+      if match(f.name, anchor_regex) !=# -1
+        return path
       endif
     endfor
-    if found_root
-      break
-    endif
     const parent = fnamemodify(path, ':h')
     if path ==# parent
       break
@@ -52,13 +59,19 @@ export def GetProjectFiles(): list<string>
       path = parent
     endif
   endwhile
-  if !found_root
-    path = expand('%:p:h')
-    depth = 0
-  endif
+  return path
+enddef
+
+export def GetProjectFiles(): list<string>
+  var ignores = []
+  for i in g:popselect.projectfiles_ignore_dirs
+    ignores->add(glob2regpat(i))
+  endfor
+  ignore_regex = ignores->join('\|')
+  root = GetProjectRoot()
   return GetProjectFilesRecuse(
-    path,
-    g:popselect.projectfiles_depth + depth,
+    root,
+    g:popselect.projectfiles_depth,
     g:popselect.limit
   )
 enddef
@@ -67,15 +80,21 @@ export def Popup(options: any = {})
   var items = GetProjectFiles()
   popselect#files#Popup(
     items,
-    { title: 'Project files' }->extend(options),
+    {
+      title: 'Project files',
+      root: root->fnamemodify(':p:h'),
+    }->extend(options),
   )
 enddef
 
 export def PopupMruAndProjectFiles(options: any = {})
-  var items = v:oldfiles + GetProjectFiles()
+  var items = GetProjectFiles() + v:oldfiles
   popselect#files#Popup(
     items,
-    { title: 'MRU + Project files' }->extend(options),
+    {
+      title: 'Project files + MRU',
+      root: root->fnamemodify(':p:h'),
+    }->extend(options),
   )
 enddef
 
