@@ -88,7 +88,7 @@ export def Popup(options: any = {})
   }->extend(options))
 enddef
 
-export def PopupMruAndProjectFiles(options: any = {})
+export def PopupWithMRU(options: any = {})
   var items = GetProjectFiles() + v:oldfiles
   popselect#files#Popup(items, {
     title: 'Project files + MRU',

@@ -1,4 +1,4 @@
-*popselect.txt*	Select a buffer, a tab page, MRU and more with popup window.
+*popselect.txt*	Select buffer, tab page, MRU and more with popup window.
 
 Author  : utubo
 License : MIT license  {{{
@@ -37,8 +37,8 @@ POPUP YOUR CUSTOMIZED ITEMS	|popselect-your-customized-items|
 ==============================================================================
 INTRODUCTION					*popselect-introduction*
 
-*popselect* is a Vim plugin to select a buffer, a tab page, MRU and more
-with popup window.
+*popselect* is a Vim plugin to select buffer, tab page, MRU and more with popup
+window.
 
 Latest version:
 https://github.com/utubo/vim-popselect.vim
@@ -67,7 +67,7 @@ Example
 	nnoremap <F2> <ScriptCmd>popselect#mru#Popup()<CR>
 	nnoremap <F3> <ScriptCmd>popselect#buffers#Popup()<CR>
 	nnoremap <F4> <ScriptCmd>popselect#tabpages#Popup()<CR>
-	nnoremap <C-p> <ScriptCmd>popselect#projectfiles#PopupMruAndProjectFiles({ filter_focused: true })<CR>
+	nnoremap <C-p> <ScriptCmd>popselect#projectfiles#PopupWithMRU({ filter_focused: true })<CR>
 <
 
 ==============================================================================
