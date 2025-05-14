@@ -15,6 +15,7 @@ export def Popup(files: list<string>, options: any = {})
       var extra = full->fnamemodify(':h')
       if !!root && extra->stridx(root) ==# 0
         extra = '.' .. extra[len(root) :]
+        extra = extra ==# '.' ? '' : extra
       endif
       add(items, {
         icon: popselect#Icon(f),
