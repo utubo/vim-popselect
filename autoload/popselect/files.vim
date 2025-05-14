@@ -8,23 +8,27 @@ export def Popup(files: list<string>, options: any = {})
     root = ''
   endif
   for f in files
-    const full = f->expand()->fnamemodify(':p')
-    if seen->has_key(full)
-      continue
-    elseif filereadable(full)
-      var extra = full->fnamemodify(':h')
-      if !!root && extra->stridx(root) ==# 0
-        extra = '.' .. extra[len(root) :]
-        extra = extra ==# '.' ? '' : extra
+    try
+      const full = f->expand()->fnamemodify(':p')
+      if seen->has_key(full)
+        continue
+      elseif filereadable(full)
+        var extra = full->fnamemodify(':h')
+        if !!root && extra->stridx(root) ==# 0
+          extra = '.' .. extra[len(root) :]
+          extra = extra ==# '.' ? '' : extra
+        endif
+        add(items, {
+          icon: popselect#Icon(f),
+          label: fnamemodify(f, ':t'),
+          extra: extra,
+          target: f
+        })
+        seen[full] = 1
       endif
-      add(items, {
-        icon: popselect#Icon(f),
-        label: fnamemodify(f, ':t'),
-        extra: extra,
-        target: f
-      })
-      seen[full] = 1
-    endif
+    catch
+      silent! echoe v:errors
+    endtry
   endfor
   popselect#Popup(items, options)
 enddef
