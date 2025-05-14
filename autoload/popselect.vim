@@ -123,7 +123,7 @@ def Update()
        line: p.core_line - (!text ? 0 : 1),
        maxwidth: width,
        minwidth: width,
-      zindex: 2,
+       zindex: 2,
     })
     popup_show(filter_winid)
     popup_settext(filter_winid, filtertext)

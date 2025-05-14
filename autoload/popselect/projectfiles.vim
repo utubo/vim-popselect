@@ -78,23 +78,17 @@ enddef
 
 export def Popup(options: any = {})
   var items = GetProjectFiles()
-  popselect#files#Popup(
-    items,
-    {
-      title: 'Project files',
-      root: root->fnamemodify(':p:h'),
-    }->extend(options),
-  )
+  popselect#files#Popup(items, {
+    title: 'Project files',
+    root: root,
+  }->extend(options))
 enddef
 
 export def PopupMruAndProjectFiles(options: any = {})
   var items = GetProjectFiles() + v:oldfiles
-  popselect#files#Popup(
-    items,
-    {
-      title: 'Project files + MRU',
-      root: root->fnamemodify(':p:h'),
-    }->extend(options),
-  )
+  popselect#files#Popup(items, {
+    title: 'Project files + MRU',
+    root: root,
+  }->extend(options))
 enddef
 
