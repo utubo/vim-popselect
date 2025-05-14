@@ -4,6 +4,9 @@ export def Popup(files: list<string>, options: any = {})
   var items = []
   var seen = {}
   var root = get(options, 'root', '')
+  if root ==# root->fnamemodify(':p')
+    root = ''
+  endif
   for f in files
     const full = f->expand()->fnamemodify(':p')
     if seen->has_key(full)

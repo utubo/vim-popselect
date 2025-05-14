@@ -14,6 +14,7 @@ def GetProjectFilesRecuse(path: string, nest: number, limit: number): list<strin
   var l = limit
   const files = readdirex(path, '1', { sort: 'collate' })
   for f in files
+    try
     l -= 1
     if l <= 0
       break
@@ -28,6 +29,9 @@ def GetProjectFilesRecuse(path: string, nest: number, limit: number): list<strin
     else
       add(result, fullpath)
     endif
+    catch
+      silent! echoe v:errors
+    endtry
   endfor
   return result + children
 enddef
