@@ -63,7 +63,7 @@ def GetProjectRoot(): string
       path = parent
     endif
   endwhile
-  return path
+  return expand('%:p:h')
 enddef
 
 export def GetProjectFiles(): list<string>
