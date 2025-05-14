@@ -9,8 +9,6 @@ export def Popup(files: list<string>, options: any = {})
       continue
     elseif filereadable(expand(f))
       var extra = f->fnamemodify(':p:h')
-      g:a = root
-      g:b = extra
       if !!root && extra->stridx(root) ==# 0
         extra = '.' .. extra[len(root) :]
       endif
