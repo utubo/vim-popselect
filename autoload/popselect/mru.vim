@@ -16,6 +16,10 @@ def Update()
   mru = [path] + mru
 enddef
 
+export def GetMRU(): list<string>
+  return mru
+enddef
+
 export def Popup(options: any = {})
   popselect#files#Popup(mru, { title: 'MRU' }->extend(options))
 enddef

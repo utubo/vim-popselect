@@ -89,7 +89,7 @@ export def Popup(options: any = {})
 enddef
 
 export def PopupWithMRU(options: any = {})
-  var items = GetProjectFiles() + v:oldfiles
+  var items = GetProjectFiles() + popselect#mru#GetMRU()
   popselect#files#Popup(items, {
     title: 'Project files + MRU',
     root: root,
