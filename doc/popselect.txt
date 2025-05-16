@@ -195,9 +195,10 @@ Note:	If the last key is a digit, The filter contains line numbers.
 ------------------------------------------------------------------------------
 FUNCTIONS					*popselect-functions*
 
-popselect#Popup({items}, [{options}])
+popselect#Popup({items}, [{options}]): number
 
 	Popup items.
+	A random ID is returned every time this is executed.
 	`items` is list<dictionaly>.
 
 		Required
@@ -259,6 +260,9 @@ popselect#Icon({path}, [{ftype}])
 		`dir` 	Directory
 		`term` 	Terminal window.
 			This will return g:popselect.icon_term.
+
+popselect#Id(): number
+	This returns the ID when popselect#Popup() is executed.
 
 ------------------------------------------------------------------------------
 POPUP YOUR CUSTOMIZED ITEMS		*popselect-your-customized-items*
