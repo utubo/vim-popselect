@@ -370,15 +370,15 @@ export def Popup(what: list<any>, options: any = {}): number
 enddef
 
 export def Close()
-  RestoreCursor()
+  augroup popselect
+    au!
+  augroup END
   timer_stop(blink_timer)
+  RestoreCursor()
   popup_close(winid)
   popup_close(filter_winid)
   winid = 0
   filter_winid = 0
-  augroup popselect
-    au!
-  augroup END
   popselect_id = 0
 enddef
 
