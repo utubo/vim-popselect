@@ -2,6 +2,7 @@ vim9script
 
 silent! packadd nerdfont.vim
 
+var popselect_id = 0
 var winid = 0
 var filter_winid = 0
 var filter_text = ''
@@ -228,6 +229,11 @@ def Delete(item: any)
   endif
 enddef
 
+def Add(new_items: list<any>)
+  src += new_items
+  Update()
+enddef
+
 def Select(line: number)
   win_execute(winid, $':{line}')
   OnSelect()
@@ -299,9 +305,13 @@ def OnSelect()
   opts.onselect(Item())
 enddef
 
-export def Popup(what: list<any>, options: any = {})
+export def Id(): number
+  return popselect_id
+enddef
+
+export def Popup(what: list<any>, options: any = {}): number
   if what->len() < 1
-    return
+    return 0
   endif
   opts = {
     zindex: 1,
@@ -355,6 +365,8 @@ export def Popup(what: list<any>, options: any = {})
   Update()
   win_gotoid(winid)
   Select(selectedIndex)
+  popselect_id = localtime()
+  return popselect_id
 enddef
 
 export def Close()
