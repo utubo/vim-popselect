@@ -61,7 +61,7 @@ export def Popup(files: list<string>, options: any = {})
   # reset params
   index = 0
   src = files
-  opt = g:popselect->extend(options)
+  opt = g:popselect->copy()->extend(options)
   seen = {}
   root = get(opt, 'root', '')
   if root ==# root->fnamemodify(':p')
