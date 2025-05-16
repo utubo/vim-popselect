@@ -379,6 +379,7 @@ export def Close()
   augroup popselect
     au!
   augroup END
+  popselect_id = 0
 enddef
 
 def HideCursor()
