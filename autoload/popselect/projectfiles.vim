@@ -15,20 +15,20 @@ def GetProjectFilesRecuse(path: string, nest: number, limit: number): list<strin
   const files = readdirex(path, '1', { sort: 'collate' })
   for f in files
     try
-    l -= 1
-    if l <= 0
-      break
-    endif
-    const fullpath = $'{p}/{f.name}'
-    if f.type ==# 'dir' || f.type ==# 'linkd'
-      if 0 < nest && match(f.name, ignore_regex) ==# -1
-        var c = GetProjectFilesRecuse(fullpath, nest - 1, l)
-        children += c
-        l -= c->len()
+      l -= 1
+      if l <= 0
+        break
       endif
-    else
-      add(result, fullpath)
-    endif
+      const fullpath = $'{p}/{f.name}'
+      if f.type ==# 'dir' || f.type ==# 'linkd'
+        if 0 < nest && match(f.name, ignore_regex) ==# -1
+          var c = GetProjectFilesRecuse(fullpath, nest - 1, l)
+          children += c
+          l -= c->len()
+        endif
+      else
+        add(result, fullpath)
+      endif
     catch
       silent! echoe v:errors
     endtry
