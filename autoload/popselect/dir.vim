@@ -3,6 +3,19 @@ vim9script
 # Note: g:popselect is initialized in ../popslect.vim
 import '../popselect.vim'
 
+def PreComplete(item: any, options: any): bool
+  if item.isdir
+    popselect#Close()
+    Popup(item.dir, options
+      ->copy()
+      ->extend({ filter_focused: 'keep' })
+    )
+    return true
+  else
+    return false
+  endif
+enddef
+
 export def Popup(path: string = '', options: any = {})
   var items = []
   var fullpath = expand(path) ?? expand('%:p:h')
@@ -35,16 +48,7 @@ export def Popup(path: string = '', options: any = {})
   endfor
   popselect#Popup(items, {
     title: popselect#Icon(fullpath, 'dir') .. fnamemodify(fullpath, ':t:r'),
-    filter_focused: !path ? '' : 'keep',
-    precomplete: (item): bool => {
-      if item.isdir
-        popselect#Close()
-        Popup(item.dir, options)
-        return true
-      else
-        return false
-      endif
-    }
+    precomplete: (item) => PreComplete(item, options),
   }->extend(options))
 enddef
 
