@@ -99,7 +99,7 @@ def Update()
     var s = $'{n}'
     var offset = ''
     if item->has_key('shortcut')
-      s = $'{item.shortcut}:'
+      s = $'{item.shortcut->keytrans()}:'
     elseif n <= 9 && 9 < items->len()
       offset = ' '
     endif
