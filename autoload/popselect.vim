@@ -11,6 +11,7 @@ var filter_focused = false
 var filter_withdigit = {}
 var line_offset = 0
 var has_icon = false
+var has_shortcut = false
 var src = []
 var items = []
 var opts = {}
@@ -80,12 +81,8 @@ def Update()
     line_offset = 0
   endif
   var n = line_offset
-  var offset = items->len() < 10 ? '' : ' '
   for item in items
     n += 1
-    if 10 <= n
-      offset = ''
-    endif
     var icon = ''
     if has_icon
       icon = item.icon ?? g:popselect.icon_unknown
@@ -99,7 +96,14 @@ def Update()
       endif
       label ..= $"\<Tab>{extra}"
     endif
-    text += [$'{offset}{n} {icon}{label}']
+    var s = $'{n}'
+    var offset = ''
+    if item->has_key('shortcut')
+      s = $'{item.shortcut}:'
+    elseif n <= 9 && 9 < items->len()
+      offset = ' '
+    endif
+    text += [$'{offset}{s} {icon}{label}']
   endfor
   popup_settext(winid, text)
   var padding_top = filter_visible && !!text ? 1 : 0
@@ -182,6 +186,14 @@ def Filter(id: number, key: string): bool
     funcref(opts[onkey_N], [Item()])()
     return true
   endif
+  if has_shortcut
+    const index = GetIndexWithShortcut(key)
+    if index !=# -1
+      Select(index)
+      Complete()
+      return true
+    endif
+  endif
   if stridx('njbpkBgG', key) !=# -1
     Move(key)
   elseif stridx('0123456789', key) !=# -1
@@ -190,7 +202,6 @@ def Filter(id: number, key: string): bool
     Complete()
   elseif stridx('eo', key) !=# -1
     Complete()
-    return true
   elseif key ==# 't'
     WithTab()
   elseif stridx('qd', key) !=# -1 &&
@@ -237,6 +248,10 @@ enddef
 def Select(line: number)
   win_execute(winid, $':{line}')
   OnSelect()
+enddef
+
+def GetIndexWithShortcut(key: string): number
+  return items->indexof((i, v) => get(v, 'shortcut', '') ==# key)
 enddef
 
 def GetIndexWithDigit(d: string): number
@@ -335,6 +350,7 @@ export def Popup(what: list<any>, options: any = {}): number
   # List box
   var selectedIndex = 1
   has_icon = false
+  has_shortcut = false
   src = what->copy()
   for i in range(min([src->len(), g:popselect.limit]))
     var item = src[i]
@@ -347,6 +363,7 @@ export def Popup(what: list<any>, options: any = {}): number
     endif
     item.index = i + 1
     has_icon = has_icon || item->has_key('icon')
+    has_shortcut = has_shortcut || item->has_key('shortcut')
   endfor
   winid = popup_menu([], opts)
   win_execute(winid, $'syntax match PMenuKind /^\s*\d\+ {has_icon ? '.' : ''}/')

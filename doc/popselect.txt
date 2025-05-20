@@ -208,6 +208,8 @@ popselect#Popup({items}, [{options}]): number
 		`extra`		List box show `{item.label}<Tab>{item.extra}`.
 		`icon`		Icon char.
 		`target`	popselect open this with default behavior.
+		`shortcut`	A shortcut key to open.
+				popselect show this instead of the linenr.
 
 		Reserved
 		`index`		popselect numbering index on list items.
