@@ -86,6 +86,7 @@ g:popselect					*popselect-g:popselect*
 				`true`: Focus
 				`false`: Do not focus
 				`'keep'`: Keep last state
+				`'never'`: Disable filter
 		`extra_show`	Show item.extra values.
 		`extra_col`	The position of item.extra without line
 				numbers and icons.

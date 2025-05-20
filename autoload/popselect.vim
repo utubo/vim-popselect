@@ -208,13 +208,17 @@ def Filter(id: number, key: string): bool
       (opts.ondelete !=# Nop || opts.predelete !=# Nop)
     Delete(Item())
   elseif stridx('f/', key) !=# -1
-    filter_visible = !filter_visible
-    filter_focused = filter_visible
-    Update()
+    if opts.filter_focused !=# 'never'
+      filter_visible = !filter_visible
+      filter_focused = filter_visible
+      Update()
+    endif
   elseif key ==# "\<Tab>" || key ==# "\<S-Tab>"
-    filter_visible = true
-    filter_focused = filter_visible
-    Update()
+    if opts.filter_focused !=# 'never'
+      filter_visible = true
+      filter_focused = filter_visible
+      Update()
+    endif
   else
     Close()
   endif
@@ -371,8 +375,11 @@ export def Popup(what: list<any>, options: any = {}): number
   win_execute(winid, $'setlocal tabstop={opts.tabstop}')
   # Filter input box
   filter_text = opts.filter_text
-  if type(opts.filter_focused) !=# type('') || opts.filter_focused !=# 'keep'
-    filter_focused = !!opts.filter_focused
+  opts.filter_focused = $'{opts.filter_focused}'
+  if opts.filter_focused ==# 'never'
+    filter_focused = false
+  elseif opts.filter_focused !=# 'keep'
+    filter_focused = opts.filter_focused ==# 'true'
   endif
   filter_visible = filter_focused
   hi link popselectFilter PMenu
