@@ -244,7 +244,7 @@ def Delete(item: any)
   endif
 enddef
 
-def Add(new_items: list<any>)
+export def Add(new_items: list<any>)
   src += new_items
   Update()
 enddef

@@ -9,11 +9,11 @@ var src = []
 var opt = {}
 var seen = {}
 var root = ''
-const interval_ms = 20
+const interval_ms = 10
 
 export def GetFiles(): list<any>
   var items = []
-  var limit = opt.limit
+  var limit = opt.maxheight
   while index < src->len()
     const f = src[index]
     index += 1
@@ -58,16 +58,16 @@ def AsyncListFiles(timer: number)
 enddef
 
 export def Popup(files: list<string>, options: any = {})
-  # reset params
-  index = 0
-  src = files
+  # setup options
   opt = g:popselect->copy()->extend(options)
-  seen = {}
   root = get(opt, 'root', '')
   if root ==# root->fnamemodify(':p')
     root = ''
   endif
   # first popup
+  index = 0
+  seen = {}
+  src = files[ : opt.limit]
   var first = GetFiles()
   popselect_id = popselect#Popup(first, options)
   timer_start(interval_ms, AsyncListFiles)
