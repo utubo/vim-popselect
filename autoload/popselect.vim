@@ -245,6 +245,11 @@ def Delete(item: any)
 enddef
 
 export def Add(new_items: list<any>)
+  var i = src->get(-1, {})->get('index', -1)
+  for item in new_items
+    i += 1
+    item.index = i
+  endfor
   src += new_items
   Update()
 enddef
