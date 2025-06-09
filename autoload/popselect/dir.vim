@@ -19,6 +19,9 @@ enddef
 export def Popup(path: string = '', options: any = {})
   var items = []
   var fullpath = expand(path) ?? expand('%:p:h')
+  const dlm = has('win32') ? '\' : '/'
+  fullpath = fullpath->substitute('[\\/]*$', dlm, '')
+  const tailess = fullpath[0 : -2]
   if filereadable(fullpath)
     fullpath = fnamemodify(fullpath, ':h')
   endif
@@ -26,7 +29,7 @@ export def Popup(path: string = '', options: any = {})
     add(items, {
       icon: popselect#Icon('..', 'dir'),
       label: '..',
-      dir: fullpath->fnamemodify(':h'),
+      dir: tailess->fnamemodify(':h'),
       isdir: true,
     })
   endif
@@ -39,7 +42,7 @@ export def Popup(path: string = '', options: any = {})
       label: f.name,
       isdir: isdir,
     }
-    item[isdir ? 'dir' : 'target'] = $'{fullpath}/{f.name}'
+    item[isdir ? 'dir' : 'target'] = $'{fullpath}{f.name}'
     add(items, item)
     l -= 1
     if l < 0
@@ -47,7 +50,7 @@ export def Popup(path: string = '', options: any = {})
     endif
   endfor
   popselect#Popup(items, {
-    title: popselect#Icon(fullpath, 'dir') .. fnamemodify(fullpath, ':t:r'),
+    title: popselect#Icon(fullpath, 'dir') .. fnamemodify(tailess, ':t:r'),
     precomplete: (item) => PreComplete(item, options),
   }->extend(options))
 enddef
