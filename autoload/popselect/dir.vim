@@ -3,6 +3,8 @@ vim9script
 # Note: g:popselect is initialized in ../popslect.vim
 import '../popselect.vim'
 
+var fullpath = ''
+
 def PreComplete(item: any, options: any): bool
   if item.isdir
     popselect#Close()
@@ -16,9 +18,14 @@ def PreComplete(item: any, options: any): bool
   endif
 enddef
 
+def ShowFullPath(): bool
+  echo fullpath
+  return true
+enddef
+
 export def Popup(path: string = '', options: any = {})
   var items = []
-  var fullpath = expand(path) ?? expand('%:p:h')
+  fullpath = expand(path) ?? expand('%:p:h')
   const dlm = has('win32') ? '\' : '/'
   fullpath = fullpath->substitute('[\\/]*$', dlm, '')
   const tailess = fullpath[0 : -2]
@@ -52,6 +59,11 @@ export def Popup(path: string = '', options: any = {})
   popselect#Popup(items, {
     title: popselect#Icon(fullpath, 'dir') .. (fnamemodify(tailess, ':t:r') ?? fullpath),
     precomplete: (item) => PreComplete(item, options),
+    # "onkey_\<C-g>": (_) => execute($"echow '{fullpath}'"),
+    "onkey_\<C-g>": (_) => ShowFullPath(),
   }->extend(options))
+  # Clear message of Full path
+  echo ''
+  redraw
 enddef
 
