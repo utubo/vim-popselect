@@ -1,6 +1,6 @@
 vim9script
 
-# Note: g:popselect is initialized in ../popslect.vim
+# Note: g:popselect is initialized in ../popselect.vim
 import '../popselect.vim'
 
 var popselect_id = 0
