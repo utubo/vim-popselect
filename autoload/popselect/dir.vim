@@ -50,7 +50,7 @@ export def Popup(path: string = '', options: any = {})
     endif
   endfor
   popselect#Popup(items, {
-    title: popselect#Icon(fullpath, 'dir') .. fnamemodify(tailess, ':t:r'),
+    title: popselect#Icon(fullpath, 'dir') .. (fnamemodify(tailess, ':t:r') ?? fullpath),
     precomplete: (item) => PreComplete(item, options),
   }->extend(options))
 enddef
