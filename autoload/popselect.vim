@@ -244,13 +244,28 @@ def Delete(item: any)
   endif
 enddef
 
-export def Add(new_items: list<any>)
-  var i = src->get(-1, {})->get('index', -1)
-  for item in new_items
-    i += 1
-    item.index = i
+def SetupItems(from: number = 0): number
+  var selectedIndex = 1
+  for i in range(from, src->len() - 1)
+    var item = src[i]
+    if type(item) ==# v:t_string
+      item = { label: item }
+      src[i] = item
+    endif
+    if get(item, 'selected', false)
+      selectedIndex = i + 1
+    endif
+    item.index = i + 1
+    has_icon = has_icon || item->has_key('icon')
+    has_shortcut = has_shortcut || item->has_key('shortcut')
   endfor
+  return selectedIndex
+enddef
+
+export def Add(new_items: list<any>)
+  const from = src->len()
   src += new_items
+  from->SetupItems()
   Update()
 enddef
 
@@ -357,23 +372,11 @@ export def Popup(what: list<any>, options: any = {}): number
   opts.maxheight = min([opts.maxheight, &lines - 2])
   opts.maxwidth = min([opts.maxwidth, &columns - 5])
   # List box
-  var selectedIndex = 1
   has_icon = false
   has_shortcut = false
   src = what->copy()
-  for i in range(min([src->len(), g:popselect.limit]))
-    var item = src[i]
-    if type(item) ==# type('')
-      item = { label: item }
-      src[i] = item
-    endif
-    if get(item, 'selected', false)
-      selectedIndex = i + 1
-    endif
-    item.index = i + 1
-    has_icon = has_icon || item->has_key('icon')
-    has_shortcut = has_shortcut || item->has_key('shortcut')
-  endfor
+  src = src[0 : opts.limit + 1]
+  const selectedIndex = SetupItems()
   winid = popup_menu([], opts)
   win_execute(winid, $'syntax match PMenuKind /^\s*\d\+ {has_icon ? '.' : ''}/')
   win_execute(winid, 'syntax match PMenuExtra /\t.*$/')
