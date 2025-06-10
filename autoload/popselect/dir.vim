@@ -26,12 +26,12 @@ enddef
 export def Popup(path: string = '', options: any = {})
   var items = []
   fullpath = expand(path) ?? expand('%:p:h')
-  const dlm = has('win32') ? '\' : '/'
-  fullpath = fullpath->substitute('[\\/]*$', dlm, '')
-  const tailess = fullpath[0 : -2]
   if filereadable(fullpath)
     fullpath = fnamemodify(fullpath, ':h')
   endif
+  const dlm = has('win32') ? '\' : '/'
+  fullpath = fullpath->substitute('[\\/]*$', dlm, '')
+  const tailess = fullpath[0 : -2]
   if fullpath->fnamemodify(':h') !=# fullpath
     add(items, {
       icon: popselect#Icon('..', 'dir'),
