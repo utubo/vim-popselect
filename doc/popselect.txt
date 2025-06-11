@@ -256,7 +256,7 @@ popselect#Popup({items}, [{options}]): number
 popselect#Close()
 	Close popselect.
 
-popselect#Icon({path}, [{ftype}])
+popselect#Icon(path: string, type: string = 'file'): string
 	Get icon char.
 	`ftype` is string. The default is `file`.
 		`file` 	File
