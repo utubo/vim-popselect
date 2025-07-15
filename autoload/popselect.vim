@@ -147,7 +147,7 @@ def Filter(id: number, key: string): bool
   if stridx("\<ESC>\<C-x>", key) !=# -1
     Close()
     return true
-  elseif key ==# "\<CR>"
+  elseif stridx("\<CR>\<Space>", key) !=# -1
     Complete()
     return true
   elseif stridx("\<C-t>", key) !=# -1
