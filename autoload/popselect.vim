@@ -56,7 +56,7 @@ def Nop(...args: list<any>): bool
 enddef
 
 def GetPos(): number
-  return win_execute(winid, 'echon getcurpos()[1]')->str2nr()
+  return getcurpos(winid)[1]
 enddef
 
 def Item(): any
