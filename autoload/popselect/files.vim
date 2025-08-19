@@ -11,14 +11,55 @@ var seen = {}
 var root = ''
 var limit = 0
 const interval_ms = 10
+const ping_timeout = 100
+var bad_servers = []
+var good_servers = []
+var server_regex = '^//\([^/]\+\)'
+if has('win32')
+  server_regex = server_regex->substitute('/', '\\\\', 'g')
+endif
+
+def TestServer(path: string): bool
+  const s = path->matchstr(server_regex)[1]
+  if !s
+    return true
+  elseif good_servers->index(s) !=# -1
+    return true
+  elseif bad_servers->index(s) ==# -1
+    var r = { status: -1 }
+    const j = job_start($'ping -n 1 -t {ping_timeout} {s}', {
+      exit_cb: (_, st) => {
+        r.status = st
+      }
+    })
+    while job_status(j) ==# 'run'
+      sleep 10m
+    endwhile
+    if !r.status
+      good_servers->add(s)
+      return true
+    endif
+    bad_servers->add(s)
+  endif
+  echom $'Connect faild: {path}'
+  return false
+enddef
 
 export def GetFiles(): list<any>
   var items = []
   var pagelimit = opt.maxheight
+  const ign = get(g:popselect, 'ignore_regexp', '') # TODO: pending...
   while index < src->len()
     const f = src[index]
     index += 1
     try
+      if !!ign && f->match(ign) !=# -1
+        continue
+      endif
+      if !TestServer(f)
+        continue
+      endif
+
       const full = f->expand()->fnamemodify(':p')
       if seen->has_key(full)
         continue
@@ -71,6 +112,8 @@ export def Popup(files: list<string>, options: any = {})
     root = ''
   endif
   # first popup
+  bad_servers = []
+  good_servers = []
   index = 0
   seen = {}
   src = files
