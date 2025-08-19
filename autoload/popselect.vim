@@ -115,10 +115,10 @@ def Update()
   if filter_visible
     var cursor = ''
     if filter_focused
-      hi link popselectFilter PMenu
+      hi link PopSelectFilterNow PopSelectFilter
       cursor = ' '
     else
-      hi link popselectFilter PMenuExtra
+      hi link PopSelectFilterNow PopSelectFilterNC
     endif
     const filtertext = $'Filter:{filter_text}{cursor}'
     const p = popup_getpos(winid)
@@ -399,8 +399,10 @@ export def Popup(what: list<any>, options: any = {}): number
     filter_focused = opts.filter_focused ==# 'true'
   endif
   filter_visible = filter_focused
-  hi link popselectFilter PMenu
-  filter_winid = popup_create('', { highlight: 'popselectFilter' })
+  hi default link PopSelectFilter Normal
+  hi default link PopSelectFilterNC PmenuExtra
+  hi link PopSelectFilterNow PopSelectFilter
+  filter_winid = popup_create('', { highlight: 'PopSelectFilterNow' })
   HideCursor()
   # Show
   Update()
