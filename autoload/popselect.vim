@@ -26,6 +26,7 @@ var default_settings = {
   tabstop: 2,
   limit: 300,
   filter_focused: false,
+  want_space: true,
   extra_show: true,
   extra_col: 20,
   icon_term: "\uf489",
@@ -147,7 +148,7 @@ def Filter(id: number, key: string): bool
   if stridx("\<ESC>\<C-x>", key) !=# -1
     Close()
     return true
-  elseif stridx("\<CR>\<Space>", key) !=# -1
+  elseif stridx("\<CR>", key) !=# -1
     Complete()
     return true
   elseif stridx("\<C-t>", key) !=# -1
@@ -158,6 +159,10 @@ def Filter(id: number, key: string): bool
     return true
   endif
   if filter_focused
+    if key ==# "\<Space>" && !g:popselect.want_space
+      Complete()
+      return true
+    endif
     # Note: stridx("<S-Tab>", 'k') returns 1.
     if key ==# "\<Tab>" || key ==# "\<S-Tab>"
       filter_focused = false
@@ -184,6 +189,10 @@ def Filter(id: number, key: string): bool
   const onkey_N = $'onkey_{key}'
   if opts->has_key(onkey_N)
     funcref(opts[onkey_N], [Item()])()
+    return true
+  endif
+  if stridx("\<Space>", key) !=# -1
+    Complete()
     return true
   endif
   if has_shortcut

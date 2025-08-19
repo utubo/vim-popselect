@@ -87,6 +87,9 @@ g:popselect					*popselect-g:popselect*
 				`false`: Do not focus
 				`'keep'`: Keep last state
 				`'never'`: Disable filter
+		`want_space`
+				`true`: You can input a space to filter.
+				`false`: You can type <Space> to select the current item.
 		`extra_show`	Show item.extra values.
 		`extra_col`	The position of item.extra without line
 				numbers and icons.
@@ -112,6 +115,7 @@ g:popselect					*popselect-g:popselect*
 		tabstop: 2,
 		limit: 300,
 		filter_focused: false,
+		want_space: true,
 		extra_show: true,
 		extra_col: 20,
 		icon_term: "\uf489",
