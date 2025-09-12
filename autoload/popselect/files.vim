@@ -12,14 +12,30 @@ var root = ''
 var limit = 0
 const interval_ms = 10
 const ping_timeout = 100
+var bad_drives = []
 var bad_servers = []
 var good_servers = []
 var server_regex = '^//\([^/]\+\)'
+
 if has('win32')
   server_regex = server_regex->substitute('/', '\\\\', 'g')
+  job_start($'net use', {
+    out_cb: (_, msg) => {
+      const m = msg->matchlist('^\(\S\+\)\s\+\([A-Z]:\)')
+      if !!m && m[1] !=# 'OK'
+        bad_drives += [m[2]]
+      endif
+    }
+  })
 endif
 
 def TestServer(path: string): bool
+  for bd in bad_drives
+    if path->stridx(bd) ==# 0
+      return false
+    endif
+  endfor
+
   const s = path->matchlist(server_regex)->get(1, '')
   if !s
     return true
