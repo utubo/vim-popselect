@@ -40,8 +40,8 @@ def TestServer(path: string): bool
       return true
     endif
     bad_servers->add(s)
+    echow $'Connect faild: {s}'
   endif
-  echom $'Connect faild: {path}'
   return false
 enddef
 
