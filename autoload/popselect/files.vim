@@ -29,7 +29,7 @@ if has('win32')
   })
 endif
 
-def TestServer(path: string): bool
+def CheckNetworkConnection(path: string): bool
   for bd in bad_drives
     if path->stridx(bd) ==# 0
       return false
@@ -72,7 +72,7 @@ export def GetFiles(): list<any>
       if !!ign && f->match(ign) !=# -1
         continue
       endif
-      if !TestServer(f)
+      if !CheckNetworkConnection(f)
         continue
       endif
 
