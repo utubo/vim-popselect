@@ -64,7 +64,7 @@ enddef
 export def GetFiles(): list<any>
   var items = []
   var pagelimit = opt.maxheight
-  const ign = get(g:popselect, 'ignore_regexp', '') # TODO: pending...
+  const ign = get(g:popselect, 'files_ignore_regexp', '')
   while index < src->len()
     const f = src[index]
     index += 1

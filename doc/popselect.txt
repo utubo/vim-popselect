@@ -98,6 +98,8 @@ g:popselect					*popselect-g:popselect*
 		`icon_diropen`	Icon of directory.
 		`icon_dirgit`	Icon of `.git/`.
 		`icon_dirup`	Icon of `../`.
+		`files_ignore_regexp`
+				Ignore pattern of files.
 		`projectfiles_ignore_dirs`
 				`popselect#projectfiles#Popup()` ignores these.
 		`projectfiles_root_anchor`
