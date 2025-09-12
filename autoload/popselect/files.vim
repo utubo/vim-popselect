@@ -20,7 +20,7 @@ if has('win32')
 endif
 
 def TestServer(path: string): bool
-  const s = path->matchstr(server_regex)[1]
+  const s = path->matchlist(server_regex)->get(1, '')
   if !s
     return true
   elseif good_servers->index(s) !=# -1
