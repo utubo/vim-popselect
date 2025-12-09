@@ -141,21 +141,23 @@ enddef
 
 def Filter(id: number, key: string): bool
   if key ==# "\<CursorHold>"
+    return false
+  elseif opts.filter_user(id, key)
     return true
-  endif
-  if opts.filter_user(id, key)
-    return true
-  endif
-  if stridx("\<ESC>\<C-x>", key) !=# -1
+  elseif len(key) !=# 1 && key !=# "\<BS>" && key !=# "\<S-Tab>"
     Close()
     return true
-  elseif stridx("\<CR>", key) !=# -1
+  endif
+  if key =~# "[\<ESC>\<C-x>]"
+    Close()
+    return true
+  elseif key ==# "\<CR>"
     Complete()
     return true
-  elseif stridx("\<C-t>", key) !=# -1
+  elseif key ==# "\<C-t>"
     WithTab()
     return true
-  elseif stridx("\<C-n>\<C-p>\<C-f>\<C-b>", key) !=# -1
+  elseif key =~# "[\<C-n>\<C-p>\<C-f>\<C-b>]"
     Move(key)
     return true
   endif
@@ -164,22 +166,21 @@ def Filter(id: number, key: string): bool
       Complete()
       return true
     endif
-    if !g:popselect.want_number && !filter_text && key =~# '^[0-9]$'
+    if !g:popselect.want_number && !filter_text && key =~# '[0-9]'
       GetIndexWithDigit(key)->Select()
       Complete()
       return true
     endif
-    # Note: stridx("<S-Tab>", 'k') returns 1.
     if key ==# "\<Tab>" || key ==# "\<S-Tab>"
       filter_focused = false
     elseif key ==# "\<BS>"
       filter_text = filter_text->substitute('.$', '', '')
       filter_withdigit = {}
-    elseif match(key, '^\p$') ==# -1
+    elseif key !~# '^\p$'
       Close()
       return true
     else
-      if stridx('0123456789', key) !=# -1
+      if key =~# '[0-9]'
         const index = GetIndexWithDigit(key)
         filter_withdigit = get(items, index - line_offset - 1, {})
         line_offset = index - 1
@@ -197,7 +198,7 @@ def Filter(id: number, key: string): bool
     funcref(opts[onkey_N], [Item()])()
     return true
   endif
-  if stridx("\<Space>", key) !=# -1
+  if key ==# "\<Space>"
     Complete()
     return true
   endif
@@ -209,20 +210,20 @@ def Filter(id: number, key: string): bool
       return true
     endif
   endif
-  if stridx('njbpkBgG', key) !=# -1
+  if key =~# '[njbpkBgG]'
     Move(key)
-  elseif key =~# '^[0-9]$'
+  elseif key =~# '[0-9]'
     const index = GetIndexWithDigit(key)
     Select(index)
     Complete()
-  elseif stridx('eo', key) !=# -1
+  elseif key =~# '[eo]'
     Complete()
   elseif key ==# 't'
     WithTab()
-  elseif stridx('qd', key) !=# -1 &&
+  elseif key =~# '[qd]' &&
       (opts.ondelete !=# Nop || opts.predelete !=# Nop)
     Delete(Item())
-  elseif stridx('f/', key) !=# -1
+  elseif key =~# '[f/]'
     if opts.filter_focused !=# 'never'
       filter_visible = !filter_visible
       filter_focused = filter_visible
@@ -304,9 +305,9 @@ enddef
 
 export def Move(key: any)
   var k = key
-  if stridx("p\<C-p>", k) !=# -1
+  if k =~# "[p\<C-p>]"
     k = 'k'
-  elseif stridx("n\<C-n>", k) !=# -1
+  elseif k =~# "[n\<C-n>]"
     k = 'j'
   endif
   var p = GetPos()
