@@ -89,7 +89,12 @@ g:popselect					*popselect-g:popselect*
 				`'never'`: Disable filter
 		`want_space`
 				`true`: You can input a space to filter.
-				`false`: You can type <Space> to select the current item.
+				`false`: You can type <Space> to select the
+				current item.
+		`want_number`
+				`true`: You can input a number to filter.
+				`false`: You can input `0` - `9` to select with
+				last digit and open it when filter is empty.
 		`extra_show`	Show item.extra values.
 		`extra_col`	The position of item.extra without line
 				numbers and icons.
@@ -118,6 +123,7 @@ g:popselect					*popselect-g:popselect*
 		limit: 300,
 		filter_focused: false,
 		want_space: true,
+		want_number: true,
 		extra_show: true,
 		extra_col: 20,
 		icon_term: "\uf489",
@@ -163,7 +169,9 @@ o		or
 e		or
 <CR>			Open
 
-0 - 9			Select with last digit and open it.
+0 - 9			Select with last digit and open it,
+			When filter is not focused or
+			filter is empty and g:popselect.want_number is true.
 
 t		or
 CTRL-T			Open with a new tab

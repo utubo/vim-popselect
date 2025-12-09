@@ -27,6 +27,7 @@ var default_settings = {
   limit: 300,
   filter_focused: false,
   want_space: true,
+  want_number: true,
   extra_show: true,
   extra_col: 20,
   icon_term: "\uf489",
@@ -159,7 +160,12 @@ def Filter(id: number, key: string): bool
     return true
   endif
   if filter_focused
-    if key ==# "\<Space>" && !g:popselect.want_space
+    if !g:popselect.want_space && key ==# "\<Space>"
+      Complete()
+      return true
+    endif
+    if !g:popselect.want_number && !filter_text && key =~# '^[0-9]$'
+      GetIndexWithDigit(key)->Select()
       Complete()
       return true
     endif
@@ -205,7 +211,7 @@ def Filter(id: number, key: string): bool
   endif
   if stridx('njbpkBgG', key) !=# -1
     Move(key)
-  elseif stridx('0123456789', key) !=# -1
+  elseif key =~# '^[0-9]$'
     const index = GetIndexWithDigit(key)
     Select(index)
     Complete()
