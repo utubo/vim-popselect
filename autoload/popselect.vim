@@ -394,7 +394,7 @@ export def Popup(what: list<any>, options: any = {}): number
   src = src[0 : opts.limit + 1]
   const selectedIndex = SetupItems()
   winid = popup_menu([], opts)
-  win_execute(winid, $'syntax match PMenuKind /^\s*\d\+ {has_icon ? '.' : ''}/')
+  win_execute(winid, $'syntax match PMenuKind /^\s*\S\+ {has_icon ? '.' : ''}/')
   win_execute(winid, 'syntax match PMenuExtra /\t.*$/')
   win_execute(winid, $'setlocal tabstop={opts.tabstop}')
   # Filter input box
