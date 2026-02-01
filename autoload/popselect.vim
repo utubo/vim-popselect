@@ -204,8 +204,8 @@ def Filter(id: number, key: string): bool
   endif
   if has_shortcut
     const index = GetIndexWithShortcut(key)
-    if index !=# -1
-      Select(index + 1)
+    if !!index
+      Select(index)
       Complete()
       return true
     endif
@@ -291,7 +291,7 @@ def Select(line: number)
 enddef
 
 def GetIndexWithShortcut(key: string): number
-  return items->indexof((i, v) => get(v, 'shortcut', '') ==# key)
+  return items->indexof((i, v) => get(v, 'shortcut', '') ==# key) + 1
 enddef
 
 def GetIndexWithDigit(d: string): number
