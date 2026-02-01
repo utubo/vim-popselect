@@ -205,7 +205,7 @@ def Filter(id: number, key: string): bool
   if has_shortcut
     const index = GetIndexWithShortcut(key)
     if index !=# -1
-      Select(index)
+      Select(index + 1)
       Complete()
       return true
     endif
