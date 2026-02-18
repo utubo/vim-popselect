@@ -28,6 +28,7 @@ var default_settings = {
   filter_focused: false,
   want_space: true,
   want_number: true,
+  want_jk: true,
   extra_show: true,
   extra_col: 20,
   icon_term: "\uf489",
@@ -166,10 +167,16 @@ def Filter(id: number, key: string): bool
       Complete()
       return true
     endif
-    if !g:popselect.want_number && !filter_text && key =~# '[0-9]'
-      GetIndexWithDigit(key)->Select()
-      Complete()
-      return true
+    if !filter_text
+      if !g:popselect.want_number && key =~# '[0-9]'
+        GetIndexWithDigit(key)->Select()
+        Complete()
+        return true
+      endif
+      if !g:popselect.want_jk && key =~# "[jk]"
+        Move(key)
+        return true
+      endif
     endif
     if key ==# "\<Tab>" || key ==# "\<S-Tab>"
       filter_focused = false

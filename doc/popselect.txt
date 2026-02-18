@@ -95,6 +95,10 @@ g:popselect					*popselect-g:popselect*
 				`true`: You can input a number to filter.
 				`false`: You can input `0` - `9` to select with
 				last digit and open it when filter is empty.
+		`want_jk`
+				`true`: You can input `j` and `k` to filter.
+				`false`: You can type `j` and `k` to select
+				next or preview item when filter is empty.
 		`extra_show`	Show item.extra values.
 		`extra_col`	The position of item.extra without line
 				numbers and icons.
