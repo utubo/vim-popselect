@@ -88,17 +88,20 @@ g:popselect					*popselect-g:popselect*
 				`'keep'`: Keep last state
 				`'never'`: Disable filter
 		`want_space`
+				When filter is empty,
 				`true`: You can input a space to filter.
 				`false`: You can type <Space> to select the
 				current item.
 		`want_number`
+				When filter is empty,
 				`true`: You can input a number to filter.
-				`false`: You can input `0` - `9` to select with
-				last digit and open it when filter is empty.
+				`false`: You can type `0` - `9` to select with
+				last digit and open it.
 		`want_jk`
+				When filter is empty,
 				`true`: You can input `j` and `k` to filter.
-				`false`: You can type `j` and `k` to select
-				next or preview item when filter is empty.
+				`false`: You can type `j` or `k` to select
+				the next or preview item.
 		`extra_show`	Show item.extra values.
 		`extra_col`	The position of item.extra without line
 				numbers and icons.
