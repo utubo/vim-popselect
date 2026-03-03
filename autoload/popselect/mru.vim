@@ -1,6 +1,6 @@
 vim9script
 
-var mru = v:oldfiles->copy()
+var mru: list<string> = v:oldfiles->copy()
 
 augroup popselect_mru
   au!
