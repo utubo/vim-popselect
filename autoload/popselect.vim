@@ -446,7 +446,7 @@ def HideCursor()
   augroup END
   set t_ve=
   hl_cursor = hlget('Cursor')
-  hl_popselect_cursor = [hl_cursor[0]->copy()->extend({ name: 'popselectCursor' })]
+  hl_popselect_cursor = [get(hl_cursor, 0, {})->copy()->extend({ name: 'popselectCursor' })]
   hlset(hl_popselect_cursor)
   hi clear Cursor
   win_execute(filter_winid, 'syntax match popselectCursor / $/')
