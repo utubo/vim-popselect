@@ -446,8 +446,13 @@ def HideCursor()
   augroup END
   set t_ve=
   hl_cursor = hlget('Cursor')
-  hl_popselect_cursor = [get(hl_cursor, 0, {})->copy()->extend({ name: 'popselectCursor' })]
-  hlset(hl_popselect_cursor)
+  if !hl_cursor
+    hi! popselectCursor gui=reverse cterm=reverse
+    hl_popselect_cursor = hlget('popselectCursor')
+  else
+    hl_popselect_cursor = [hl_cursor[0]->copy()->extend({ name: 'popselectCursor' })]
+    hlset(hl_popselect_cursor)
+  endif
   hi clear Cursor
   win_execute(filter_winid, 'syntax match popselectCursor / $/')
   blink_timer = timer_start(500, popselect#BlinkCursor, { repeat: -1 })
