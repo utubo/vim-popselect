@@ -17,7 +17,7 @@ var items = []
 var opts = {}
 var blink_timer = 0
 var blink = false
-var hl_cursor = []
+var hl_bkup = []
 var hl_popselect_cursor = []
 
 var default_settings = {
@@ -445,22 +445,29 @@ def HideCursor()
     au VimLeavePre * RestoreCursor()
   augroup END
   set t_ve=
-  hl_cursor = hlget('Cursor')
-  if !hl_cursor
-    hi! popselectCursor gui=reverse cterm=reverse
-    hl_popselect_cursor = hlget('popselectCursor')
-  else
-    hl_popselect_cursor = [hl_cursor[0]->copy()->extend({ name: 'popselectCursor' })]
-    hlset(hl_popselect_cursor)
-  endif
-  hi clear Cursor
+  hl_bkup = hlget('Cursor')
+  var hl_cursor = hl_bkup->get(0, {
+    gui: { reverse: true }, cterm: { reverse: true }, term: { reverse: true }
+  })
+  # selected item
+  for hlname in ['PMenuSel', 'PMenuExtraSel', 'PMenuKindSel']
+    var hl = hlget(hlname)->get(0, {})
+    if hl->get('linksto', '') ==# 'Cursor'
+      hl_bkup += [hl]
+      hlset([hl_cursor->copy()->extend({ name: hlname })])
+    endif
+  endfor
+  # cursor on filter
+  hl_popselect_cursor = [hl_cursor->copy()->extend({ name: 'popselectCursor' })]
+  hlset(hl_popselect_cursor)
   win_execute(filter_winid, 'syntax match popselectCursor / $/')
   blink_timer = timer_start(500, popselect#BlinkCursor, { repeat: -1 })
+  hi clear Cursor
 enddef
 
 def RestoreCursor()
   set t_ve&
-  hlset(hl_cursor)
+  hlset(hl_bkup)
 enddef
 
 export def BlinkCursor(timer: number)
