@@ -19,6 +19,7 @@ var blink_timer = 0
 var blink = false
 var hl_bkup = []
 var hl_popselect_cursor = []
+var tve_bkup = ''
 
 var default_settings = {
   maxwidth: 60,
@@ -444,7 +445,6 @@ def HideCursor()
     au!
     au VimLeavePre * RestoreCursor()
   augroup END
-  set t_ve=
   hl_bkup = hlget('Cursor')
   var hl_cursor = hl_bkup->get(0, {
     gui: { reverse: true }, cterm: { reverse: true }, term: { reverse: true }
@@ -463,11 +463,18 @@ def HideCursor()
   win_execute(filter_winid, 'syntax match popselectCursor / $/')
   blink_timer = timer_start(500, popselect#BlinkCursor, { repeat: -1 })
   hi clear Cursor
+  if !!&t_ve
+    tve_bkup = &t_ve
+    set t_ve=
+  endif
 enddef
 
 def RestoreCursor()
-  set t_ve&
   hlset(hl_bkup)
+  if !!tve_bkup
+    &t_ve = tve_bkup
+    tve_bkup = ''
+  endif
 enddef
 
 export def BlinkCursor(timer: number)
