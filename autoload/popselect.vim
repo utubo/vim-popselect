@@ -144,6 +144,8 @@ enddef
 def Filter(id: number, key: string): bool
   if key ==# "\<CursorHold>"
     return false
+  elseif key ==# "\<Cmd>" || key ==# "\<Cmd>"
+    return false
   elseif opts.filter_user(id, key)
     return true
   elseif len(key) !=# 1 && key !=# "\<BS>" && key !=# "\<S-Tab>"
